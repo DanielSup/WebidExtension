@@ -641,6 +641,9 @@ function addShippingOption($country_index, $shipping_option_index, $shipping_opt
         $shipping_option .= formGroupForShippingOptionField('Shipping cost for second and further item', 'number', $shipping_option_select_id_prefix . '[shipping-for-second-item]', $shipping_option_array['shipping-for-second-item']);
     }
 
+    $remove_button = "<button type='button' onclick='removeShippingOptionForCountry($country_index, $shipping_option_index)'>Delete shipping option</button>";
+    $shipping_option .= $remove_button;
+
     $shipping_option .= "</div>";
     return $shipping_option;
 }

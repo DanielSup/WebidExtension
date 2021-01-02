@@ -10,3 +10,4 @@ uploaded/**
 .idea/
 includes/packages/captcha/securimage.php
 *.lock
+games/**

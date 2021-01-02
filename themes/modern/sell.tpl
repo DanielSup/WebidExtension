@@ -1,4 +1,5 @@
 <!-- IF PAGE eq 0 -->
+<script type="text/javascript" src="{SITEURL}themes/{THEME}/js/sell.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	// set up the page
@@ -210,149 +211,11 @@ $(document).ready(function(){
 	<!-- ENDIF -->
 	<!-- IF ALL_COUNTRIES -->
 
+	let countriesSellFormModule = new CountriesSellFormModule("{SHIPPING_OPTIONS}");
 	<!-- IF HANDLE_SHIPPING_OPTIONS_FOR_SELECTED_COUNTRIES -->
 		{HANDLE_SHIPPING_OPTIONS_FOR_SELECTED_COUNTRIES}
 	<!-- ENDIF -->
-		handleChangeCountries({FIRST_COUNTRY_ORDER_TO_SELECT});
-
-		function handleChangeCountries(order){
-			$('#countries\\[' + order + '\\]\\[id\\]').change(function(){
-				var selectedCountryId = $(this).children("option:selected").val();
-				var selectedCountryName = $(this).children("option:selected").text();
-				addCountry(selectedCountryId, selectedCountryName, order);
-				if($('#countries\\[' + (order + 1) + '\\]\\[id\\]').length == 0) {
-					addSelect(order + 1);
-				}
-			});
-		}
-
-		function addSelect(order) {
-			var divWithLabel = document.createElement('div');
-			divWithLabel.setAttribute('class', 'form-group col-md-12 dutchhide');
-			divWithLabel.setAttribute('id', 'country-definition-' + order);
-
-			var label = document.createElement('label');
-			label.innerText = 'Another country where you want to deliver the item';
-			divWithLabel.appendChild(label);
-
-			var countriesSelect = document.createElement('select');
-			countriesSelect.setAttribute('name', 'countries[' + order + '][id]');
-			countriesSelect.setAttribute('id', 'countries[' + order + '][id]');
-			var countriesSelectOptions = $('#countries\\[' + (order - 1) + '\\]\\[id\\] option:not(:selected)');
-			countriesSelectOptions.appendTo(countriesSelect);
-
-			var paragraph = document.createElement('p');
-			paragraph.append(countriesSelect);
-			divWithLabel.appendChild(paragraph);
-
-			$('#countries-shipping-definition').append(divWithLabel);
-			handleChangeCountries(order);
-		}
-
-		function addCountry(id, value, order){
-			var legendSelectedCountry = document.createElement('legend');
-			legendSelectedCountry.innerText = value;
-			legendSelectedCountry.setAttribute('class', 'legend-without-bottom-border');
-			$('#country-definition-' + order).append(legendSelectedCountry);
-
-			addShippingOption(order, 1);
-		}
-
-
-		function shippingOption(order, shippingOptionOrder){
-			var shippingOptionFormGroup = document.createElement('div')
-			shippingOptionFormGroup.setAttribute('class', 'form-group col-md-12 dutchhide');
-			shippingOptionFormGroup.setAttribute('id', 'country-definition-' + order + '-shipping-option-' + shippingOptionOrder);
-
-			var selectFormGroup = shippingOptionSelectFormGroup(order, shippingOptionOrder);
-			shippingOptionFormGroup.append(selectFormGroup);
-			
-			return shippingOptionFormGroup;
-		}
-
-		function addShippingOption(order, shippingOptionOrder) {
-			var shippingOptionsFormGroup = shippingOption(order, shippingOptionOrder);
-			$('#country-definition-' + order).append(shippingOptionsFormGroup);
-			handleChangeShippingOption(order, shippingOptionOrder);
-		}
-
-		function handleChangeShippingOption(order, shippingOptionOrder){
-			var selectShippingOptionId = 'countries\\[' + order + '\\]\\[shipping-options\\]\\[' + shippingOptionOrder + '\\]\\[id\\]';
-			$('#' + selectShippingOptionId).one('change', function() {
-				addFieldToShippingOptionFormGroup(order, shippingOptionOrder);
-
-				addShippingOption(order, shippingOptionOrder + 1);
-			});
-		}
-
-		function addFieldToShippingOptionFormGroup(order, shippingOptionOrder){
-			var shippingOptionFormGroupId = 'country-definition-' + order + '-shipping-option-' + shippingOptionOrder;
-			var shippingOptionFormGroup = document.getElementById(shippingOptionFormGroupId);
-
-			var shippingOptionFieldIdPrefix = 'countries[' + order + '][shipping-options][' + shippingOptionOrder + ']'
-
-			var titleId = shippingOptionFieldIdPrefix + '[title]';
-			var titleFormGroup = formGroupForField('Title', titleId, titleId, 'text');
-			shippingOptionFormGroup.append(titleFormGroup);
-
-			var shippingFirstItemId = shippingOptionFieldIdPrefix + '[shipping-for-first-item]';
-			var shippingFirstItemFormGroup = formGroupForField('Shipping cost for first item', shippingFirstItemId, shippingFirstItemId, 'number');
-			shippingOptionFormGroup.append(shippingFirstItemFormGroup);
-
-			var shippingSecondItemId = shippingOptionFieldIdPrefix + '[shipping-for-second-item]';
-			var shippingSecondItemFormGroup = formGroupForField('Shipping cost for second and further item', shippingSecondItemId, shippingSecondItemId, 'number');
-			shippingOptionFormGroup.append(shippingSecondItemFormGroup);
-		}
-
-		function shippingOptionSelectFormGroup(order, shippingOptionOrder){
-			var shippingOptionSelectFormGroup = document.createElement('div')
-			shippingOptionSelectFormGroup.setAttribute('class', 'form-group col-md-12 dutchhide');
-
-			var label = document.createElement('label');
-			label.innerText = 'Shipping option';
-			shippingOptionSelectFormGroup.append(label);
-
-			var elementForSelection = document.createElement('select');
-			elementForSelection.setAttribute('name', 'countries[' + order + '][shipping-options][' + shippingOptionOrder + '][id]');
-			elementForSelection.setAttribute('id', 'countries[' + order + '][shipping-options][' + shippingOptionOrder + '][id]');
-
-			if (shippingOptionOrder === 1) {
-				elementForSelection.innerHTML = "{SHIPPING_OPTIONS}";
-			} else {
-				var previousSelectCountryId = 'countries\\[' + order + '\\]\\[shipping-options\\]\\[' + (shippingOptionOrder - 1) + '\\]\\[id\\]';
-				var options = $('#' + previousSelectCountryId + ' option:not(:selected)');
-				options.appendTo(elementForSelection);
-			}
-
-			var divForSelection = document.createElement('div');
-			divForSelection.append(elementForSelection);
-			shippingOptionSelectFormGroup.append(divForSelection);
-
-			return shippingOptionSelectFormGroup;
-		}
-
-		function formGroupForField(labelText, id, name, fieldType) {
-			var formGroup = document.createElement('div');
-			formGroup.setAttribute('class', 'form-group col-md-12 dutchhide');
-
-			var label = document.createElement('label');
-			label.innerText = labelText;
-			formGroup.appendChild(label);
-
-			var elementForField = document.createElement('div');
-			var field = document.createElement('input');
-			field.setAttribute('type', fieldType);
-			field.setAttribute('name', name);
-			field.setAttribute('id', id);
-
-			if (fieldType == 'number') {
-				field.setAttribute('step', 'any');
-			}
-
-			elementForField.appendChild(field);
-			formGroup.appendChild(elementForField);
-			return formGroup;
-		}
+	    countriesSellFormModule.handleChangeCountries({FIRST_COUNTRY_ORDER_TO_SELECT});
 	<!-- ENDIF -->
 });
 </script>

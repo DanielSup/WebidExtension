@@ -558,7 +558,7 @@ switch ($_SESSION['action']) {
                     unset($available_shipping_options[intval($shipping_option_id)]);
                     $first_shipping_option_to_select++;
                 }
-                $handle_shipping_options_for_selected_countries .= "handleChangeShippingOption(" . $first_country_to_select .  ", " . $first_shipping_option_to_select . ");\n";
+                $handle_shipping_options_for_selected_countries .= "countriesSellFormModule.handleChangeShippingOption(" . $first_country_to_select .  ", " . $first_shipping_option_to_select . ");\n";
                 $selected_country .= "</div>";
                 $selected_countries .= $selected_country;
 
@@ -575,6 +575,7 @@ switch ($_SESSION['action']) {
         }
         $all_countries .= '</select>';
 
+        // shipping options
         $shipping_options = "";
         $shipping_options .= "<option value=''></option>";
 
