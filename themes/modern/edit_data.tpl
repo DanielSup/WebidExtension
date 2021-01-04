@@ -123,4 +123,42 @@
 	<input type="hidden" name="action" value="update">
 </form>
 
+<div class="well">
+	<legend>{L_1200}</legend>
+	<div class="row">
+		<!-- BEGIN groups -->
+			<div>
+				<label>{groups.GROUP_NAME}</label>
+                <div>
+					<a class="btn btn-danger" href="/remove_membership.php?group_id={groups.GROUP_ID}">{L_1204}</a>
+                </div>
+			</div>
+		<!-- END groups -->
+	</div>
+	<div class="row">
+		<!-- BEGIN groups_to_add -->
+			<div>
+				<label>{groups_to_add.GROUP_NAME}</label>
+				<div>
+					<a class="btn btn-primary" href="/add_to_group.php?group_id={groups_to_add.GROUP_ID}">{L_1203}</a>
+				</div>
+			</div>
+		<!-- END groups_to_add -->
+	</div>
+	<legend style="margin-top: 1em">{L_1205}</legend>
+	<form action="/create_group.php" method="post">
+		<div class="row">
+			<div class="form-group col-lg-12">
+				<label>{L_1202}</label>
+				<div>
+					<input type="text" name="title">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<input type="submit" value="{L_1201}">
+		</div>
+	</form>
+</div>
+
 <!-- INCLUDE user_menu_footer.tpl -->

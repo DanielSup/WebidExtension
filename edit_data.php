@@ -218,6 +218,28 @@ foreach ($gateway_data as $gateway) {
     }
 }
 
+$query = "SELECT * FROM " . $DBPrefix . "user_groups_members m RIGHT OUTER JOIN " . $DBPrefix . "user_groups g ON m.user_groups_id = g.id WHERE m.users_id = ". $user->user_data['id'];
+$db->direct_query($query);
+$group_data = $db->fetchall();
+
+foreach ($group_data as $group){
+    $template->assign_block_vars('groups', array(
+        'GROUP_ID' => $group['id'],
+        'GROUP_NAME' => $group['title']
+    ));
+}
+
+$query = "SELECT * FROM " . $DBPrefix. "user_groups g WHERE NOT EXISTS (SELECT * FROM " . $DBPrefix . "user_groups_members m WHERE m.user_groups_id = g.id AND m.users_id = " . $user->user_data['id'] . ")";
+$db->direct_query($query);
+$group_to_add_data = $db->fetchall();
+
+foreach($group_to_add_data as $group){
+    $template->assign_block_vars('groups_to_add', array(
+        'GROUP_ID' => $group['id'],
+        'GROUP_NAME' => $group['title']
+    ));
+}
+
 $template->assign_vars(array(
         'COUNTRYLIST' => $country_list,
         'NAME' => $USER['name'],

@@ -854,6 +854,14 @@ $MSG['1152'] = 'Zdarma';
 
 $MSG['1153'] = 'Tisk faktury';
 
+// groups
+$MSG['1200'] = 'Skupiny';
+$MSG['1201'] = 'Založit skupinu';
+$MSG['1202'] = 'Název skupiny';
+$MSG['1203'] = 'Přidat se do skupiny';
+$MSG['1204'] = 'Zrušit členství ve skupině';
+$MSG['1205'] = 'Založení skupiny';
+
 $MSG['5000'] = 'Chcete-li zobrazit tuto stránku, musíte být přihlášeni';
 $MSG['5001'] = 'Zobrazit stránku';
 $MSG['5002'] = 'Jestliže chcete přihazovat, tak musíte být přihlášeni';

@@ -855,6 +855,14 @@ $MSG['1152'] = 'Free';
 
 $MSG['1153'] = 'Print Invoice';
 
+// groups
+$MSG['1200'] = 'Groups';
+$MSG['1201'] = 'Create group';
+$MSG['1202'] = 'Title of the group';
+$MSG['1203'] = 'Add to group';
+$MSG['1204'] = 'Cancel membership in group';
+$MSG['1205'] = 'Adding group';
+
 $MSG['5000'] = 'You must be logged in to see this page';
 $MSG['5001'] = 'View Site';
 $MSG['5002'] = 'You must be logged in to bid';
