@@ -147,11 +147,20 @@
 	</div>
 	<legend style="margin-top: 1em">{L_1205}</legend>
 	<form action="/create_group.php" method="post">
+		<!-- IF ERROR_DUPLICATE_GROUP_NAME -->
+			<div class="error-box">
+				<span class="text-danger">{ERROR_DUPLICATE_GROUP_NAME}</span>
+			</div>
+		<!-- ENDIF -->
 		<div class="row">
 			<div class="form-group col-lg-12">
 				<label>{L_1202}</label>
 				<div>
-					<input type="text" name="title">
+					<input type="text" name="title"
+						<!-- IF ERROR_VALUE -->
+							value="{ERROR_VALUE}"
+						<!-- ENDIF -->
+					>
 				</div>
 			</div>
 		</div>

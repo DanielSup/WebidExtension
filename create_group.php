@@ -2,14 +2,22 @@
 include './common.php';
 include INCLUDE_PATH . 'functions_user_groups.php';
 
-// creating new group
-$query = "INSERT INTO " . $DBPrefix . "user_groups (title) VALUES(:title)";
+$query = "SELECT * FROM " . $DBPrefix. "user_groups WHERE " . $DBPrefix. "user_groups.title = \"". $_POST["title"]. "\"";
+$db->direct_query($query);
+$groups = $db->fetchall();
 
-$params = array();
-$params[] = array(':title', $_POST["title"], 'str');
-$db->query($query, $params);
+if (count($groups)) {
+    $_SESSION["error_value_title"] = $_POST["title"];
+    header("Location: /edit_data.php?error_duplicate_group_name=true");
+} else {
+    // creating new group
+    $query = "INSERT INTO " . $DBPrefix . "user_groups (title) VALUES(:title)";
 
-addCurrentUserToGroup($db->lastInsertId());
+    $params = array();
+    $params[] = array(':title', $_POST["title"], 'str');
+    $db->query($query, $params);
 
-header("Location: /edit_data.php");
-exit();
+    addCurrentUserToGroup($db->lastInsertId());
+
+    header("Location: /edit_data.php");
+}

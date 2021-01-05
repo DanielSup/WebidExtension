@@ -1266,3 +1266,4 @@ $MSG['count_minute'] = " minute";
 $MSG['count_seconds'] = " seconds";
 $MSG['count_second'] = " second";
 
+$MSG['error_duplicate_group_name'] = "You are trying to add a group with the same name as existing group. Name of group must be unique. Please add a group with a different name";

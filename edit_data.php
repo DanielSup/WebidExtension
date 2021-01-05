@@ -253,6 +253,8 @@ $template->assign_vars(array(
         'PHONE' => $USER['phone'],
         'DATEFORMAT' => ($system->SETTINGS['datesformat'] == 'USA') ? $dobmonth . ' ' . $dobday : $dobday . ' ' . $dobmonth,
         'TIMEZONE' => $time_correction,
+        'ERROR_DUPLICATE_GROUP_NAME' => isset($_GET["error_duplicate_group_name"]) ? $MSG["error_duplicate_group_name"] : null,
+        'ERROR_VALUE' => isset($_SESSION["error_value_title"]) ? $_SESSION["error_value_title"] : null,
 
         'NLETTER1' => ($USER['nletter'] == 1) ? ' checked="checked"' : '',
         'NLETTER2' => ($USER['nletter'] == 2) ? ' checked="checked"' : '',

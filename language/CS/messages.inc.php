@@ -1266,3 +1266,4 @@ $MSG['count_minute'] = " minuta";
 $MSG['count_seconds'] = " sekundy";
 $MSG['count_second'] = " sekunda";
 
+$MSG['error_duplicate_group_name'] = "Pokoušíte se přidat skupinu s názvem již existující skupiny. Jméno skupiny musí být unikátní. Prosím pojmenujte skupinu jinak.";
