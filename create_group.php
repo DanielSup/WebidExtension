@@ -2,14 +2,25 @@
 include './common.php';
 include INCLUDE_PATH . 'functions_user_groups.php';
 
-$query = "SELECT * FROM " . $DBPrefix. "user_groups WHERE " . $DBPrefix. "user_groups.title = \"". $_POST["title"]. "\"";
-$db->direct_query($query);
-$groups = $db->fetchall();
+$title_first_word = lowercaseFirstWord($_POST["title"]);
 
-if (count($groups)) {
+$query = "SELECT * FROM " . $DBPrefix. "user_groups";
+$db->direct_query($query);
+$group_with_same_or_similar_title = false;
+while ($group = $db->fetch()){
+    $lowercase_group_title = strtolower($group["title"]);
+    $lowercase_group_title_first_word = lowercaseFirstWord($lowercase_group_title);
+    if (strpos($lowercase_group_title, $title_first_word) !== false || strpos($title_first_word, $lowercase_group_title_first_word) !== false){
+        $group_with_same_or_similar_title = true;
+        break;
+    }
+}
+
+if ($group_with_same_or_similar_title) {
     $_SESSION["error_value_title"] = $_POST["title"];
     header("Location: /edit_data.php?error_duplicate_group_name=true");
 } else {
+    unset($_SESSION["error_value_title"]);
     // creating new group
     $query = "INSERT INTO " . $DBPrefix . "user_groups (title) VALUES(:title)";
 
@@ -20,4 +31,9 @@ if (count($groups)) {
     addCurrentUserToGroup($db->lastInsertId());
 
     header("Location: /edit_data.php");
+}
+
+function lowercaseFirstWord($string){
+    $first_word = explode(" ", $string)[0];
+    return strtolower($first_word);
 }
