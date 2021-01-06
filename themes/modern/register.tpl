@@ -102,6 +102,12 @@
 						{TIMEZONE}
 					</div>
 				</div>
+				<div class="form-group col-lg-12">
+					<label>{L_347}</label>
+					<div class="currency">
+						{CURRENCY}
+					</div>
+				</div>
 	<!-- IF B_NLETTER -->
 				<div class="form-group col-lg-12">
 					<div class="alert alert-info" role="alert">

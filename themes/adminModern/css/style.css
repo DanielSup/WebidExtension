@@ -110,6 +110,7 @@
 	display: inline-block;
 	margin-bottom: 2px;
 }
+.currency select,
 .timezone select,
 .auctiontype select,
 .duration select,

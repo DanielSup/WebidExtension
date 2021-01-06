@@ -254,10 +254,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'first') {
                 $phpass = new PasswordHash(8, false);
                 $query = "INSERT INTO " . $DBPrefix . "users
                           (nick, password, hash, name, address, city, prov, country, zip, phone, nletter, email, birthdate,
-                          suspended, language, groups, balance, timezone)
+                          suspended, language, groups, balance, timezone, rate_id)
                           VALUES
                           (:nick, :password, :hash, :name, :address, :city, :prov, :country, :zip, :phone, :nletter, :email, :birthdate,
-                          :suspended, :language, :groups, :balance, :timezone)";
+                          :suspended, :language, :groups, :balance, :timezone, :rate_id)";
                 $params = array(
                     array(':nick', $system->cleanvars($TPL_nick_hidden), 'str'),
                     array(':password', $phpass->HashPassword($TPL_password_hidden), 'str'),
@@ -277,6 +277,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'first') {
                     array(':groups', implode(',', $groups), 'str'),
                     array(':balance', $balance, 'float'),
                     array(':timezone', $_POST['TPL_timezone'], 'str'),
+                    array(':rate_id', $_POST['currency'], 'int')
                 );
                 $db->query($query, $params);
                 $TPL_id_hidden = $db->lastInsertId();
@@ -383,6 +384,17 @@ $dobday .= '</select>';
 $selectsetting = (isset($_POST['TPL_timezone'])) ? $_POST['TPL_timezone'] : $system->SETTINGS['timezone'];
 $time_correction = generateSelect('TPL_timezone', $timezones, $selectsetting);
 
+$query = "SELECT * FROM " . $DBPrefix . "rates";
+$db->direct_query($query);
+$currencies = array();
+while($currency = $db->fetch()){
+    $currency_id = $currency["id"];
+    $currency_symbol = $currency["symbol"];
+    $currencies[$currency_id] = $currency_symbol;
+}
+$selectsetting = (isset($_POST['currency'])) ? $_POST['currency'] : 10;
+$currency_select = generateSelect('currency', $currencies, $selectsetting);
+
 foreach ($gateway_data as $gateway) {
     if ($gateway['gateway_active']) {
         $template->assign_block_vars('gateways', array(
@@ -407,6 +419,7 @@ $template->assign_vars(array(
         'L_COUNTRIES' => $country_dropdown,
         'L_DATEFORMAT' => ($system->SETTINGS['datesformat'] == 'USA') ? $dobmonth . ' ' . $dobday : $dobday . ' ' . $dobmonth,
         'TIMEZONE' => $time_correction,
+        'CURRENCY' => $currency_select,
         'TERMSTEXT' => $system->SETTINGS['termstext'],
 
         'B_ADMINAPROVE' => ($system->SETTINGS['activationtype'] == 0),
