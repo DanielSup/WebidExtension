@@ -381,7 +381,6 @@ $MSG['340'] = 'Z';
 $MSG['341'] = 'Zobrazit všechny novinky';
 $MSG['342'] = ' Zprávy';
 $MSG['346'] = 'Časové pásmo';
-$MSG['347'] = 'Měna';
 $MSG['349'] = 'Odpověď';
 $MSG['351'] = 'Zpět do doručené pošty';
 $MSG['352'] = 'Formát e-mailu';

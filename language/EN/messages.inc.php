@@ -381,7 +381,6 @@ $MSG['340'] = 'From';
 $MSG['341'] = 'View all news';
 $MSG['342'] = ' News';
 $MSG['346'] = 'Time Zone';
-$MSG['347'] = 'Currency';
 $MSG['349'] = 'Reply';
 $MSG['351'] = 'Back to inbox';
 $MSG['352'] = 'Email Format';
