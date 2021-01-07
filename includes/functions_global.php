@@ -310,10 +310,27 @@ class global_class
         return true;
     }
 
-    public function print_money($str, $from_database = true, $bold = true)
+    public function load_currencies(){
+        global $DBPrefix, $db;
+        $query = "SELECT * FROM " . $DBPrefix . "rates";
+        $db->direct_query($query);
+
+        $this->currencies = array();
+        while($currency = $db->fetch()){
+            $currency_id = $currency['id'];
+            $currency_symbol = $currency['symbol'];
+            $this->currencies[$currency_id] = $currency_symbol;
+        }
+    }
+
+    public function get_currency_code_from_rate_id($rate_id){
+        return $this->currencies[$rate_id];
+    }
+
+    public function print_money($str, $from_database = true, $bold = true, $rate_id = null)
     {
         $str = $this->print_money_nosymbol($str, $from_database);
-        $currency = $this->SETTINGS['currency'];
+        $currency = $rate_id === null ? $this->SETTINGS['currency'] : $this->get_currency_code_from_rate_id($rate_id);
 
         if ($bold) {
             $str = '<b>' . $str . '</b>';

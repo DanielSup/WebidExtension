@@ -392,7 +392,8 @@ while($currency = $db->fetch()){
     $currency_symbol = $currency["symbol"];
     $currencies[$currency_id] = $currency_symbol;
 }
-$selectsetting = (isset($_POST['currency'])) ? $_POST['currency'] : 10;
+$default_currency = array_search($system->SETTINGS['currency'], $currencies);
+$selectsetting = (isset($_POST['currency'])) ? $_POST['currency'] : $default_currency;
 $currency_select = generateSelect('currency', $currencies, $selectsetting);
 
 foreach ($gateway_data as $gateway) {

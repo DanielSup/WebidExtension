@@ -166,7 +166,7 @@ while ($row = $db->fetch()) {
 
 $end_soon = ($i > 0) ? true : false;
 // get hot items
-$query = "SELECT a.id, a.title, a.current_bid, a.pict_url, a.ends, a.num_bids, a.minimum_bid
+$query = "SELECT a.id, a.title, a.current_bid, a.pict_url, a.ends, a.num_bids, a.minimum_bid, a.rate_id
 		FROM " . $DBPrefix . "auctions a
 		LEFT JOIN " . $DBPrefix . "auccounter c ON (a.id = c.auction_id)
 		WHERE closed = 0 AND suspended = 0 AND starts <= CURRENT_TIMESTAMP
@@ -190,7 +190,7 @@ while ($row = $db->fetch()) {
     $template->assign_block_vars('hotitems', array(
             'ENDS' => $ends_string,
             'ID' => $row['id'],
-            'BID' => $system->print_money($high_bid),
+            'BID' => $system->print_money($high_bid, true, true, $row['rate_id']),
             'IMAGE' => (!empty($row['pict_url'])) ? 'getthumb.php?w=' . $system->SETTINGS['thumb_show'] . '&auction_id=' . $row['id'] . '&amp;fromfile=' . $row['pict_url'] : '',
             'TITLE' => htmlspecialchars($row['title'])
             ));

@@ -80,5 +80,6 @@ $dt = new Date($system, $user);
 if (isset($_SESSION['REDIRECT_AFTER_LOGIN']) && !defined('AtLogin')) {
     unset($_SESSION['REDIRECT_AFTER_LOGIN']);
 }
+$system->load_currencies();
 
 $template->set_template();
