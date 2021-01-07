@@ -41,7 +41,7 @@ function browseItems($query, $params, $query_feat, $params_feat, $total, $curren
                 'SUBTITLE' => htmlspecialchars($row['subtitle']),
                 'BUY_NOW' => ($difference->invert == 1) ? '' : $row['buy_now'],
                 'BID' => $row['current_bid'],
-                'BIDFORM' => $system->print_money($row['current_bid']),
+                'BIDFORM' => $system->print_money($row['current_bid'], true, true, $row['rate_id']),
                 'CLOSES' => ($difference->format('%d') < 20) ? $dt->formatTimeLeft($difference) : $dt->printDateTz($row['ends']),
                 'NUMBIDS' => sprintf($MSG['950'], $row['num_bids']),
 
@@ -71,7 +71,7 @@ function browseItems($query, $params, $query_feat, $params_feat, $total, $curren
             'SUBTITLE' => htmlspecialchars($row['subtitle']),
             'BUY_NOW' => ($difference->invert == 1) ? '' : $row['buy_now'],
             'BID' => $row['current_bid'],
-            'BIDFORM' => $system->print_money($row['current_bid']),
+            'BIDFORM' => $system->print_money($row['current_bid'], true, true, $row['rate_id']),
             'CLOSES' => ($difference->format('%d') < 20) ? $dt->formatTimeLeft($difference) : $dt->printDateTz($row['ends']),
             'NUMBIDS' => sprintf($MSG['950'], $row['num_bids']),
 
