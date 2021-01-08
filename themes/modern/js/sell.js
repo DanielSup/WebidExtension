@@ -1,6 +1,5 @@
 class CountriesSellFormModule {
     constructor(shippingOptionsForSelect){
-        console.log("setting from constructor");
         this.shippingOptionsForSelect = shippingOptionsForSelect;
     }
 
@@ -35,6 +34,7 @@ class CountriesSellFormModule {
         divWithLabel.appendChild(label);
 
         const countriesSelect = document.createElement('select');
+        countriesSelect.setAttribute('class', 'form-control');
         countriesSelect.setAttribute('name', 'countries[' + order + '][id]');
         countriesSelect.setAttribute('id', 'countries[' + order + '][id]');
         const countriesSelectOptions = $('#countries\\[' + (order - 1) + '\\]\\[id\\] option:not(:selected)');
@@ -105,6 +105,7 @@ class CountriesSellFormModule {
         shippingOptionSelectFormGroup.append(label);
 
         const elementForSelection = document.createElement('select');
+        elementForSelection.setAttribute('class', 'form-control');
         elementForSelection.setAttribute('name', 'countries[' + order + '][shipping-options][' + shippingOptionOrder + '][id]');
         elementForSelection.setAttribute('id', 'countries[' + order + '][shipping-options][' + shippingOptionOrder + '][id]');
 
@@ -132,7 +133,8 @@ class CountriesSellFormModule {
         formGroup.appendChild(label);
 
         const elementForField = document.createElement('div');
-        const field = document.createElement('input');
+        const field = document.createElement('input')
+        field.setAttribute('class', 'form-control');
         field.setAttribute('type', fieldType);
         field.setAttribute('name', name);
         field.setAttribute('id', id);

@@ -51,6 +51,10 @@ if (strlen($term) == 0) {
 			(title LIKE :title OR id = :auc_id)
 			" . $catSQL . "
 			AND closed = 0 AND suspended = 0 AND starts <= CURRENT_TIMESTAMP AND ends > CURRENT_TIMESTAMP";
+    if (isset($_GET['countryId'])){
+        $shipping_options_sql = shipping_options_for_country_sql($_GET['countryId'], $DBPrefix);
+        $query .= " AND EXISTS ($shipping_options_sql)";
+    }
     $params = array();
     $params[] = array(':title', '%' . $system->cleanvars($term) . '%', 'str');
     $params[] = array(':auc_id', $term, 'int');
@@ -94,3 +98,10 @@ $template->set_filenames(array(
         ));
 $template->display('body');
 include 'footer.php';
+
+function shipping_options_for_country_sql($country_id, $DBPrefix){
+    $sql = "SELECT * FROM " . $DBPrefix . "auctions_shipping_options";
+    $sql .= " WHERE " . $DBPrefix . "auctions_shipping_options.auction_id = " . $DBPrefix . "auctions.id";
+    $sql .= " AND " . $DBPrefix . "auctions_shipping_options.country_id = " . $country_id;
+    return $sql;
+}

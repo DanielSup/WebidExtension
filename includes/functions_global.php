@@ -323,6 +323,10 @@ class global_class
         }
     }
 
+    public function get_currencies(){
+        return $this->currencies;
+    }
+
     public function get_currency_code_from_rate_id($rate_id){
         return $this->currencies[$rate_id];
     }

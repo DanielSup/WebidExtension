@@ -217,6 +217,11 @@ $(document).ready(function(){
 	<!-- ENDIF -->
 	    countriesSellFormModule.handleChangeCountries({FIRST_COUNTRY_ORDER_TO_SELECT});
 	<!-- ENDIF -->
+
+	$('select[name="currency"]').change(function(){
+		const newCurrency = $(this).find(':selected').html();
+		$('.currency_label').text(newCurrency);
+	});
 });
 </script>
 <!-- ENDIF -->
@@ -290,6 +295,12 @@ $(document).ready(function(){
 						</div>
 					</div>
 					<div class="form-group col-md-12">
+						<label for="currency">{L_347}</label>
+						<div class="row">
+							<div class="currency col-md-4">{CURRENCY_SELECT}</div>
+						</div>
+					</div>
+					<div class="form-group col-md-12">
 						<label for="iquantity">{L_258}</label>
 						<div class="row">
 							<div class="col-md-4">
@@ -303,7 +314,7 @@ $(document).ready(function(){
 							<div class="col-md-4">
 								<input type="text" class="form-control" name="minimum_bid" id="min_bid" value="{MIN_BID}" {BN_ONLY}>
 							</div>
-							{CURRENCY}
+							<span class="currency_label">{CURRENCY}</span>
 						</div>
 					</div>
 	<!-- IF B_CUSINC -->
@@ -320,7 +331,7 @@ $(document).ready(function(){
 							</label>
 						</div>
 						<input type="text" name="customincrement" id="custominc" class="form-control" value="{CUSTOM_INC}">
-						{CURRENCY}
+						<span class="currency_label">{CURRENCY}</span>
 					</div>
 	<!-- ELSE -->
 					<input type="hidden" name="increments" id="inc1" value="1">
@@ -338,7 +349,7 @@ $(document).ready(function(){
 							</label>
 						</div>
 						<input type="text" name="reserve_price" id="reserve_price" class="form-control" value="{RESERVE}" {BN_ONLY}>
-						{CURRENCY}
+						<span class="currency_label">{CURRENCY}</span>
 					</div>
 	<!-- IF B_BN_ONLY -->
 					<div class="form-group col-md-12 dutchhide">
@@ -369,7 +380,7 @@ $(document).ready(function(){
 							</label>
 						</div>
 						<input type="text" name="buy_now_price" id="bn" class="form-control" value="{BN_PRICE}">
-						{CURRENCY}
+						<span class="currency_label">{CURRENCY}</span>
 					</div>
 	<!-- ENDIF -->
 	<!-- IF B_EDIT_STARTTIME -->
@@ -447,7 +458,7 @@ $(document).ready(function(){
 						<div class="row">
 							<div class="col-md-4">
 								<input type="text" class="form-control" name="shipping_cost" id="shipping_cost" value="{SHIPPING_COST}" <!-- IF SHIPPING1 eq '' -->disabled="disabled"<!-- ENDIF -->>
-								{CURRENCY}
+								<span class="currency_label">{CURRENCY}</span>
 							</div>
 						</div>
 					</div>
@@ -456,7 +467,7 @@ $(document).ready(function(){
 						<div class="row">
 							<div class="col-md-4">
 								<input type="text" class="form-control" name="additional_shipping_cost" id="additional_shipping_cost" value="{ADDITIONAL_SHIPPING_COST}" <!-- IF SHIPPING1 eq '' -->disabled="disabled"<!-- ENDIF -->>
-								{CURRENCY}
+								<span class="currency_label">{CURRENCY}</span>
 							</div>
 						</div>
 					</div>
@@ -542,7 +553,7 @@ $(document).ready(function(){
 					<div class="form-group col-md-12">
 						<input type="hidden" name="fee_exact" id="fee_exact" value="{FEE_VALUE}">
 						<div class="alert alert-info" role="alert">
-							<b>{L_1151}: </b><span class="text-danger" id="to_pay"> {FEE_VALUE_F} </span><small> {CURRENCY}</small>
+							<b>{L_1151}: </b><span class="text-danger" id="to_pay"> {FEE_VALUE_F} </span><small> <span class="currency_label">{CURRENCY}</span></small>
 						</div>
 					</div>
 	<!-- ENDIF -->

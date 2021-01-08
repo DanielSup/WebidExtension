@@ -568,7 +568,7 @@ switch ($_SESSION['action']) {
         }
 
         // countries
-        $all_countries = "<select name=\"countries[$first_country_to_select][id]\" id=\"countries[$first_country_to_select][id]\">";
+        $all_countries = "<select class=\"form-control\" name=\"countries[$first_country_to_select][id]\" id=\"countries[$first_country_to_select][id]\">";
         $all_countries .= "<option value=''></option>";
         foreach($possible_countries as $id => $possible_country){
             $all_countries .= "<option value='$id'>$possible_country</option>";
@@ -686,6 +686,9 @@ switch ($_SESSION['action']) {
             $corrected_fee = 0;
         }
 
+        $currencies = $system->get_currencies();
+        $currency_select = generateSelect('currency', $currencies, 10);
+
         $template->assign_vars(array(
                 'TITLE' => $MSG['028'],
                 'ERROR' => ($ERR == 'ERR_') ? '' : $$ERR,
@@ -693,6 +696,7 @@ switch ($_SESSION['action']) {
                 'CAT_LIST2' => $category_string2,
                 'ATYPE' => $TPL_auction_type,
                 'ATYPE_PLAIN' => $atype,
+                'CURRENCY_SELECT' => $currency_select,
                 'CURRENCY' => $system->SETTINGS['currency'],
                 'DURATIONS' => $TPL_durations_list,
                 'PAYMENTS' => $payment_methods,

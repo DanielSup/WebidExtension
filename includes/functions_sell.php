@@ -30,7 +30,7 @@ function generate_id()
 
 function setvars()
 {
-    global $with_reserve, $reserve_price, $minimum_bid, $pict_url, $imgtype, $title, $subtitle, $sdescription, $atype, $iquantity, $buy_now, $buy_now_price, $is_taxed, $tax_included, $additional_shipping_cost;
+    global $with_reserve, $reserve_price, $minimum_bid, $pict_url, $imgtype, $title, $subtitle, $sdescription, $atype, $currency, $iquantity, $buy_now, $buy_now_price, $is_taxed, $tax_included, $additional_shipping_cost;
     global $duration, $relist, $increments, $customincrement, $shipping, $shipping_terms, $payment, $international, $sellcat1, $sellcat2, $buy_now_only, $a_starts, $shipping_cost, $is_bold, $is_highlighted, $is_featured, $start_now;
     global $_POST, $_SESSION, $system, $custom_end, $a_ends, $custom_end, $caneditstartdate, $dt;
 
@@ -49,6 +49,7 @@ function setvars()
     $sdescription = (isset($_POST['sdescription'])) ? $system->cleanvars($_POST['sdescription'], true) : $_SESSION['SELL_description'];
     $pict_url = (isset($_POST['pict_url'])) ? $_POST['pict_url'] : $_SESSION['SELL_pict_url'];
     $atype = (isset($_POST['atype'])) ? $_POST['atype'] : $_SESSION['SELL_atype'];
+    $currency = (isset($_POST['currency'])) ? $_POST['currency'] : $_SESSION['SELL_currency'];
     $iquantity = (int)(isset($_POST['iquantity'])) ? $_POST['iquantity'] : $_SESSION['SELL_iquantity'];
     $iquantity = (empty($iquantity)) ? 1 : round($iquantity);
     $buy_now = (isset($_POST['buy_now'])) ? $_POST['buy_now'] : $_SESSION['SELL_with_buy_now'];
@@ -104,7 +105,7 @@ function setvars()
 
 function makesessions()
 {
-    global $with_reserve, $reserve_price, $minimum_bid, $pict_url, $imgtype, $title, $subtitle, $sdescription, $pict_url, $atype, $iquantity, $buy_now, $buy_now_price, $is_taxed, $tax_included, $additional_shipping_cost;
+    global $with_reserve, $reserve_price, $minimum_bid, $pict_url, $imgtype, $title, $subtitle, $sdescription, $pict_url, $atype, $currency, $iquantity, $buy_now, $buy_now_price, $is_taxed, $tax_included, $additional_shipping_cost;
     global $duration, $relist, $increments, $customincrement, $shipping, $shipping_terms, $payment, $international, $sendemail, $buy_now_only, $a_starts, $shipping_cost, $is_bold, $is_highlighted, $is_featured, $start_now, $_SESSION;
     global $a_ends, $custom_end, $caneditstartdate;
 
@@ -119,6 +120,7 @@ function makesessions()
     $_SESSION['SELL_description'] = $sdescription;
     $_SESSION['SELL_pict_url'] = $pict_url;
     $_SESSION['SELL_atype'] = $atype;
+    $_SESSION['SELL_currency'] = $currency;
     $_SESSION['SELL_iquantity'] = $iquantity;
     $_SESSION['SELL_with_buy_now'] = $buy_now;
     $_SESSION['SELL_buy_now_price'] = $buy_now_price;
@@ -159,6 +161,7 @@ function unsetsessions()
     $_SESSION['SELL_pict_url'] = '';
     $_SESSION['SELL_pict_url_temp'] = '';
     $_SESSION['SELL_atype'] = '';
+    $_SESSION['SELL_currency'] = '';
     $_SESSION['SELL_iquantity'] = '';
     $_SESSION['SELL_with_buy_now'] = '';
     $_SESSION['SELL_buy_now_price'] = '';
@@ -220,7 +223,8 @@ function updateauction()
 		featured = :featured,
 		tax = :tax,
 		taxinc = :taxinc,
-		current_fee = current_fee + :fee";
+		current_fee = current_fee + :fee,
+		rate_id = :rate_id";
     $params = array();
     $params[] = array(':title', $_SESSION['SELL_title'], 'str');
     $params[] = array(':subtitle', $_SESSION['SELL_subtitle'], 'str');
@@ -253,6 +257,7 @@ function updateauction()
     $params[] = array(':taxinc', $_SESSION['SELL_tax_included'], 'bool');
     $params[] = array(':fee', $fee, 'float');
     $params[] = array(':auction_id', $_SESSION['SELL_auction_id'], 'int');
+    $params[] = array(':rate_id', $_SESSION, 'int');
     if ($caneditstartdate) {
         $query .= ", starts = :starts";
         $params[] = array(':starts', $dt->convertToUTC($a_starts), 'str');
@@ -265,8 +270,8 @@ function addauction()
 {
     global $DBPrefix, $_SESSION, $user, $a_starts, $a_ends, $payment_text, $system, $fee, $db, $dt;
 
-    $query = "INSERT INTO " . $DBPrefix . "auctions (user,title,subtitle,starts,description,pict_url,category,secondcat,minimum_bid,shipping_cost,additional_shipping_cost,reserve_price,buy_now,auction_type,duration,increment,shipping,payment,international,ends,photo_uploaded,initial_quantity,quantity,relist,shipping_terms,bn_only,bold,highlighted,featured,current_fee,tax,taxinc) VALUES
-	(:user_id, :title, :subtitle, :starts, :description, :pict_url, :catone, :cattwo, :min_bid, :shipping_cost, :additional_shipping_cost, :reserve_price, :buy_now, :auction_type, :duration, :increment, :shipping, :payment, :international, :ends, :photo_uploaded, :initial_quantity, :quantity, :relist, :shipping_terms, :bn_only, :bold, :highlighted, :featured, :fee, :tax, :taxinc)";
+    $query = "INSERT INTO " . $DBPrefix . "auctions (user,title,subtitle,starts,description,pict_url,category,secondcat,minimum_bid,shipping_cost,additional_shipping_cost,reserve_price,buy_now,auction_type,duration,increment,shipping,payment,international,ends,photo_uploaded,initial_quantity,quantity,relist,shipping_terms,bn_only,bold,highlighted,featured,current_fee,tax,taxinc,rate_id) VALUES
+	(:user_id, :title, :subtitle, :starts, :description, :pict_url, :catone, :cattwo, :min_bid, :shipping_cost, :additional_shipping_cost, :reserve_price, :buy_now, :auction_type, :duration, :increment, :shipping, :payment, :international, :ends, :photo_uploaded, :initial_quantity, :quantity, :relist, :shipping_terms, :bn_only, :bold, :highlighted, :featured, :fee, :tax, :taxinc, :rate_id)";
 
     $params = array();
     $params[] = array(':user_id', $user->user_data['id'], 'int');
@@ -301,6 +306,7 @@ function addauction()
     $params[] = array(':fee', $fee, 'float');
     $params[] = array(':tax', $_SESSION['SELL_is_taxed'], 'bool');
     $params[] = array(':taxinc', $_SESSION['SELL_tax_included'], 'bool');
+    $params[] = array(':rate_id', $_SESSION['SELL_currency'], 'int');
     $db->query($query, $params);
     $auction_id = $db->lastInsertId();
 
@@ -316,13 +322,14 @@ function addauction()
                 break;
             }
 
-            $query = "INSERT INTO " . $DBPrefix . "auctions_shipping_options (auction_id, shipping_option_id, title, shipping_for_first_item, shipping_for_second_item) VALUES (:auction_id, :shipping_option_id, :title, :shipping_for_first_item, :shipping_for_second_item)";
+            $query = "INSERT INTO " . $DBPrefix . "auctions_shipping_options (auction_id, shipping_option_id, title, shipping_for_first_item, shipping_for_second_item, country_id) VALUES (:auction_id, :shipping_option_id, :title, :shipping_for_first_item, :shipping_for_second_item, :country_id)";
             $params = array();
             $params[] = array(':auction_id', $auction_id, 'int');
             $params[] = array(':shipping_option_id', $shipping_option['id'], 'int');
             $params[] = array(':title', $shipping_option['title'], 'str');
             $params[] = array(':shipping_for_first_item', $shipping_option['shipping-for-first-item'], 'int');
             $params[] = array(':shipping_for_second_item', $shipping_option['shipping-for-second-item'], 'int');
+            $params[] = array(':country_id', $country['id'], 'int');
             $db->query($query, $params);
         }
     }
@@ -646,5 +653,19 @@ function addShippingOption($country_index, $shipping_option_index, $shipping_opt
 
     $shipping_option .= "</div>";
     return $shipping_option;
+}
+
+function generateSelect($name, $options, $selectsetting)
+{
+    $html = '<select name="' . $name . '">';
+    foreach ($options as $option => $value) {
+        if ($selectsetting == $option) {
+            $html .= '<option value=' . $option . ' selected>' . $value . '</option>';
+        } else {
+            $html .= '<option value=' . $option . '>' . $value . '</option>';
+        }
+    }
+    $html .= '</select>';
+    return $html;
 }
 

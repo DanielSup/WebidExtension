@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Čtv 07. led 2021, 15:02
+-- Vytvořeno: Pát 08. led 2021, 13:03
 -- Verze serveru: 10.4.14-MariaDB
 -- Verze PHP: 7.4.10
 
@@ -422,7 +422,8 @@ CREATE TABLE `webid_auctions` (
 INSERT INTO `webid_auctions` (`id`, `user`, `title`, `subtitle`, `starts`, `ends`, `description`, `pict_url`, `category`, `secondcat`, `minimum_bid`, `shipping_cost`, `additional_shipping_cost`, `reserve_price`, `buy_now`, `auction_type`, `duration`, `increment`, `shipping`, `payment`, `international`, `current_bid`, `current_bid_id`, `closed`, `photo_uploaded`, `initial_quantity`, `quantity`, `suspended`, `relist`, `relisted`, `num_bids`, `sold`, `shipping_terms`, `bn_only`, `bold`, `highlighted`, `featured`, `current_fee`, `tax`, `taxinc`, `bn_sale`, `rate_id`) VALUES
 (8, 2, 'Moje čtyřkolka', '', '2020-08-16 10:53:26', '2020-08-16 11:04:26', '<p>Toto je moje čtyřkolka.</p>', 'o_1efreas8rp4p1nqi1nhq1ld4ihkf.jpg', 1323, 0, 0.99, 0.00, 0.00, 0.00, 0.00, 1, 1.00, 0.00, 1, 'platbadobirkou, bankovniprevod, paypal, hotovepriprevzeti, paypal, bitcoin, platebnikartou', 0, 0.00, 0, 1, 0, 1, 1, 0, 0, 0, 0, 'y', '', 0, 0, 0, 0, 0.00, 0, 0, 0, 10),
 (11, 2, 'Moje miska', '', '2020-11-07 23:06:28', '2021-11-08 23:06:28', '<p>Moje miska</p>', '', 3851, 0, 0.99, 0.00, 0.00, 0.00, 0.00, 1, 1.00, 0.00, 1, 'platbadobirkou, bankovniprevod, paypal, hotovepriprevzeti', 0, 0.00, 0, 0, 0, 1, 1, 0, 0, 0, 0, 'n', '', 0, 0, 0, 0, 0.00, 0, 0, 0, 10),
-(12, 2, 'Moje cedule', '', '2020-11-07 23:10:31', '2020-11-08 23:10:31', '<p>Moje cedule.</p>', '', 321, 0, 0.99, 0.00, 0.00, 0.00, 0.00, 1, 1.00, 0.00, 1, 'platbadobirkou, bankovniprevod, paypal, hotovepriprevzeti', 0, 0.00, 0, 0, 0, 1, 1, 0, 0, 0, 0, 'n', '', 0, 0, 0, 0, 0.00, 0, 0, 0, 10);
+(12, 2, 'Moje cedule', '', '2020-11-07 23:10:31', '2020-11-08 23:10:31', '<p>Moje cedule.</p>', '', 321, 0, 0.99, 0.00, 0.00, 0.00, 0.00, 1, 1.00, 0.00, 1, 'platbadobirkou, bankovniprevod, paypal, hotovepriprevzeti', 0, 0.00, 0, 0, 0, 1, 1, 0, 0, 0, 0, 'n', '', 0, 0, 0, 0, 0.00, 0, 0, 0, 10),
+(13, 2, 'Můj server', '', '2021-01-08 11:42:56', '2021-01-10 11:42:56', '<p>Jedn&aacute; se o server.</p>', '', 2160, 0, 10.00, 0.00, 0.00, 0.00, 0.00, 1, 2.00, 0.00, 1, 'platbadobirkou, bankovniprevod, paypal, hotovepriprevzeti', 0, 0.00, 0, 0, 0, 1, 1, 0, 0, 0, 0, 'n', '', 0, 0, 0, 0, 0.00, 0, 0, 0, 12);
 
 -- --------------------------------------------------------
 
@@ -435,15 +436,18 @@ CREATE TABLE `webid_auctions_shipping_options` (
   `shipping_option_id` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `shipping_for_first_item` int(11) DEFAULT NULL,
-  `shipping_for_second_item` int(11) DEFAULT NULL
+  `shipping_for_second_item` int(11) DEFAULT NULL,
+  `country_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Vypisuji data pro tabulku `webid_auctions_shipping_options`
 --
 
-INSERT INTO `webid_auctions_shipping_options` (`auction_id`, `shipping_option_id`, `title`, `shipping_for_first_item`, `shipping_for_second_item`) VALUES
-(12, 1, 'Czech post', 150, 80);
+INSERT INTO `webid_auctions_shipping_options` (`auction_id`, `shipping_option_id`, `title`, `shipping_for_first_item`, `shipping_for_second_item`, `country_id`) VALUES
+(12, 1, 'Czech post', 150, 80, 57),
+(13, 1, 'Česká pošta', 250, 150, 57),
+(13, 1, 'Deustche post', 500, 250, 81);
 
 -- --------------------------------------------------------
 
@@ -592,7 +596,7 @@ CREATE TABLE `webid_categories` (
 --
 
 INSERT INTO `webid_categories` (`cat_id`, `parent_id`, `left_id`, `right_id`, `level`, `cat_name`, `sub_counter`, `counter`, `cat_colour`, `cat_image`) VALUES
-(1, -1, 1, 7636, -1, 'All', 5, 0, '', ''),
+(1, -1, 1, 7636, -1, 'All', 6, 0, '', ''),
 (2, 1, 7076, 7635, 0, 'Cars and motorcycles', 0, 0, '', ''),
 (3, 2, 7633, 7634, 1, 'Stickers', 0, 0, '', ''),
 (4, 2, 7611, 7632, 1, 'Motorcycles', 0, 0, '', ''),
@@ -676,7 +680,7 @@ INSERT INTO `webid_categories` (`cat_id`, `parent_id`, `left_id`, `right_id`, `l
 (110, 75, 5383, 5384, 1, 'Scientific Instruments', 0, 0, '', ''),
 (111, 75, 5381, 5382, 1, 'Textiles', 0, 0, '', ''),
 (112, 75, 5379, 5380, 1, 'Tobacciana', 0, 0, '', ''),
-(122, 1, 4306, 4635, 0, 'Computers & Software', 0, 0, '', ''),
+(122, 1, 4306, 4635, 0, 'Computers & Software', 1, 0, '', ''),
 (124, 122, 4581, 4634, 1, 'Laptops & accessories', 0, 0, '', ''),
 (125, 122, 4579, 4580, 1, 'Internet Services', 0, 0, '', ''),
 (126, 122, 4559, 4578, 1, 'Software', 0, 0, '', ''),
@@ -2665,7 +2669,7 @@ INSERT INTO `webid_categories` (`cat_id`, `parent_id`, `left_id`, `right_id`, `l
 (2157, 122, 4353, 4354, 1, 'Tablets', 0, 0, '', ''),
 (2158, 122, 4351, 4352, 1, 'Book readers', 0, 0, '', ''),
 (2159, 122, 4335, 4350, 1, 'Game equipment', 0, 0, '', ''),
-(2160, 122, 4333, 4334, 1, 'Servers', 0, 0, '', ''),
+(2160, 122, 4333, 4334, 1, 'Servers', 1, 1, '', ''),
 (2161, 122, 4331, 4332, 1, 'Cash register systems', 0, 0, '', ''),
 (2162, 122, 4311, 4330, 1, 'Historical computers', 0, 0, '', ''),
 (2163, 122, 4309, 4310, 1, 'Other', 0, 0, '', ''),
@@ -4497,7 +4501,7 @@ CREATE TABLE `webid_counters` (
 --
 
 INSERT INTO `webid_counters` (`users`, `inactiveusers`, `auctions`, `closedauctions`, `bids`, `suspendedauctions`) VALUES
-(4, 1, 5, 8, 0, 0);
+(4, 1, 6, 8, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -4844,7 +4848,8 @@ INSERT INTO `webid_currentaccesses` (`day`, `month`, `year`, `pageviews`, `uniqu
 ('04', '01', '2021', 53, 0, 1),
 ('05', '01', '2021', 56, 2, 3),
 ('06', '01', '2021', 58, 0, 2),
-('07', '01', '2021', 171, 0, 1);
+('07', '01', '2021', 181, 0, 1),
+('08', '01', '2021', 57, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -4884,7 +4889,7 @@ INSERT INTO `webid_currentbrowsers` (`month`, `year`, `browser`, `counter`) VALU
 ('11', '2020', 'User Agent: Chrome<br />Engine: AppleWebKit 86.0.4240.183', 49),
 ('12', '2020', 'User Agent: Chrome<br />Engine: AppleWebKit 87.0.4280.67', 33),
 ('12', '2020', 'User Agent: Chrome<br />Engine: AppleWebKit 87.0.4280.88', 114),
-('01', '2021', 'User Agent: Chrome<br />Engine: AppleWebKit 87.0.4280.88', 406);
+('01', '2021', 'User Agent: Chrome<br />Engine: AppleWebKit 87.0.4280.88', 473);
 
 -- --------------------------------------------------------
 
@@ -4913,7 +4918,7 @@ INSERT INTO `webid_currentplatforms` (`month`, `year`, `platform`, `counter`) VA
 ('10', '2020', 'Windows NT 10.0 (Windows 10)', 202),
 ('11', '2020', 'Windows NT 10.0 (Windows 10)', 66),
 ('12', '2020', 'Windows NT 10.0 (Windows 10)', 147),
-('01', '2021', 'Windows NT 10.0 (Windows 10)', 406);
+('01', '2021', 'Windows NT 10.0 (Windows 10)', 473);
 
 -- --------------------------------------------------------
 
@@ -9356,7 +9361,273 @@ INSERT INTO `webid_logs` (`id`, `type`, `message`, `action_id`, `user_id`, `ip`,
 (4233, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:00:21'),
 (4234, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:00:22'),
 (4235, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:00:22'),
-(4236, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:00:22');
+(4236, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:00:22'),
+(4237, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:25'),
+(4238, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_home.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:25'),
+(4239, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:25'),
+(4240, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:40'),
+(4241, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:40'),
+(4242, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:40'),
+(4243, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:40'),
+(4244, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:40'),
+(4245, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:40'),
+(4246, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:40'),
+(4247, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:45'),
+(4248, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:45'),
+(4249, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:45'),
+(4250, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_edit_data.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:45'),
+(4251, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:45'),
+(4252, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:45'),
+(4253, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:45'),
+(4254, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:53'),
+(4255, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:53'),
+(4256, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:53'),
+(4257, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_edit_data.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:53'),
+(4258, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:53'),
+(4259, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:53'),
+(4260, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:20:53'),
+(4261, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:05'),
+(4262, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:05'),
+(4263, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:05'),
+(4264, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_edit_data.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:06'),
+(4265, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:06'),
+(4266, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:06'),
+(4267, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:06'),
+(4268, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:10'),
+(4269, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:10'),
+(4270, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:10'),
+(4271, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:15'),
+(4272, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:15'),
+(4273, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:15'),
+(4274, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:17'),
+(4275, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:17'),
+(4276, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:17'),
+(4277, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:19'),
+(4278, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:19'),
+(4279, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:19'),
+(4280, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:58'),
+(4281, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:58'),
+(4282, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-07 14:26:58'),
+(4283, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 08:57:59'),
+(4284, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_home.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 08:57:59'),
+(4285, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 08:57:59'),
+(4286, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:31'),
+(4287, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:31'),
+(4288, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:31'),
+(4289, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:31'),
+(4290, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:31'),
+(4291, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_user_menu_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:31'),
+(4292, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:31'),
+(4293, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:35'),
+(4294, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:35'),
+(4295, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:35'),
+(4296, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:35'),
+(4297, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:42'),
+(4298, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:42'),
+(4299, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:42'),
+(4300, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:42'),
+(4301, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 09:56:43'),
+(4302, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:39'),
+(4303, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:39'),
+(4304, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:39'),
+(4305, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:50'),
+(4306, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:50'),
+(4307, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:50'),
+(4308, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:53'),
+(4309, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:53'),
+(4310, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:53'),
+(4311, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:56'),
+(4312, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:56'),
+(4313, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:08:56'),
+(4314, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:09:00'),
+(4315, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:09:00'),
+(4316, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:09:00'),
+(4317, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:09:01'),
+(4318, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:09:01'),
+(4319, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:09:01'),
+(4320, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:15:40'),
+(4321, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:15:40'),
+(4322, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:15:40'),
+(4323, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:16:23'),
+(4324, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:16:23'),
+(4325, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:16:23'),
+(4326, 'error', '<b>Warning</b> [2] Invalid argument supplied for foreach() on C:\\xampp_new_2\\htdocs\\includes\\functions_sell.php line 654\n', 0, 0, '::1', '2021-01-08 10:25:30'),
+(4327, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:25:30'),
+(4328, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:25:30'),
+(4329, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:25:30'),
+(4330, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:26:00'),
+(4331, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:26:00'),
+(4332, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:26:00'),
+(4333, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:29:22'),
+(4334, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:29:22'),
+(4335, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:29:22'),
+(4336, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:29:51'),
+(4337, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:29:51'),
+(4338, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:29:51'),
+(4339, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:31:32'),
+(4340, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:31:32'),
+(4341, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:31:32'),
+(4342, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:32:00'),
+(4343, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:32:00'),
+(4344, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:32:00'),
+(4345, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:32:31'),
+(4346, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:32:31'),
+(4347, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:32:31'),
+(4348, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:34:18'),
+(4349, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:34:18'),
+(4350, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:34:18'),
+(4351, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:54:27'),
+(4352, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:54:27'),
+(4353, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:54:27'),
+(4354, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:57:40'),
+(4355, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:57:40'),
+(4356, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 10:57:40'),
+(4357, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:05:14'),
+(4358, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:05:14'),
+(4359, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:05:14'),
+(4360, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:07:32'),
+(4361, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:07:32'),
+(4362, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:07:32'),
+(4363, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:08:49'),
+(4364, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:08:49'),
+(4365, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:08:49'),
+(4366, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:20'),
+(4367, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:20'),
+(4368, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:20'),
+(4369, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:32'),
+(4370, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_home.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:32'),
+(4371, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:32'),
+(4372, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:35'),
+(4373, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:35'),
+(4374, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:35'),
+(4375, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:39'),
+(4376, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:39'),
+(4377, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:39'),
+(4378, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:41'),
+(4379, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:41'),
+(4380, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:41'),
+(4381, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:42'),
+(4382, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:42'),
+(4383, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:09:42'),
+(4384, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:21:13'),
+(4385, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:21:13'),
+(4386, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:21:13'),
+(4387, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:21:21'),
+(4388, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:21:21'),
+(4389, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:21:22'),
+(4390, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:41'),
+(4391, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_home.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:41'),
+(4392, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:41'),
+(4393, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:46'),
+(4394, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:46'),
+(4395, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:46'),
+(4396, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:49'),
+(4397, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:49'),
+(4398, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:49'),
+(4399, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:54'),
+(4400, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_select_category.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:54'),
+(4401, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:54'),
+(4402, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:55'),
+(4403, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:55'),
+(4404, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:40:55'),
+(4405, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:42:48'),
+(4406, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:42:48'),
+(4407, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:42:48'),
+(4408, 'error', '<b>Deprecated notice</b> [8192] __autoload() is deprecated, use spl_autoload_register() instead on C:\\xampp_new_2\\htdocs\\includes\\packages\\PHPMailer\\PHPMailerAutoload.php line 45\n', 0, 0, '::1', '2021-01-08 11:42:56'),
+(4409, 'error', '<b>Deprecated notice</b> [8192] implode(): Passing glue string after array is deprecated. Swap the parameters on C:\\xampp_new_2\\htdocs\\includes\\class_email_handler.php line 70\n', 0, 0, '::1', '2021-01-08 11:42:56'),
+(4410, 'user', 'List Item', 0, 2, '::1', '2021-01-08 11:42:57'),
+(4411, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:42:57');
+INSERT INTO `webid_logs` (`id`, `type`, `message`, `action_id`, `user_id`, `ip`, `timestamp`) VALUES
+(4412, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_sell.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:42:57'),
+(4413, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:42:57'),
+(4414, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:50'),
+(4415, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:50'),
+(4416, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:50'),
+(4417, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:50'),
+(4418, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:50'),
+(4419, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:58'),
+(4420, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:58'),
+(4421, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:58'),
+(4422, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:58'),
+(4423, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:43:58'),
+(4424, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:33'),
+(4425, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:33'),
+(4426, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:33'),
+(4427, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:33'),
+(4428, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:33'),
+(4429, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:36'),
+(4430, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:36'),
+(4431, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:36'),
+(4432, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:36'),
+(4433, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:36'),
+(4434, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:42'),
+(4435, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:42'),
+(4436, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:42'),
+(4437, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:42'),
+(4438, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:45'),
+(4439, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:45'),
+(4440, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:45'),
+(4441, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:45'),
+(4442, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:45'),
+(4443, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:53'),
+(4444, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:53'),
+(4445, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:53'),
+(4446, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:53'),
+(4447, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 11:59:53'),
+(4448, 'error', '<b>Warning trigger</b> [512] SQLSTATE[42S02]: Base table or view not found: 1146 Table \'f136172.auctions_shipping_options\' doesn\'t exist on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:00:10'),
+(4449, 'error', '<b>Warning trigger</b> [512] SQLSTATE[42S02]: Base table or view not found: 1146 Table \'f136172.auctions_shipping_options\' doesn\'t exist on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:00:10'),
+(4450, 'error', '<b>Warning trigger</b> [512] SQLSTATE[42S02]: Base table or view not found: 1146 Table \'f136172.auctions_shipping_options\' doesn\'t exist on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:00:10'),
+(4451, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:10'),
+(4452, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:10'),
+(4453, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:10'),
+(4454, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:10'),
+(4455, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:10'),
+(4456, 'error', '<b>Warning trigger</b> [512] SQLSTATE[42S22]: Column not found: 1054 Unknown column \'webid_country_id\' in \'where clause\' on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:00:51'),
+(4457, 'error', '<b>Warning trigger</b> [512] SQLSTATE[42S22]: Column not found: 1054 Unknown column \'webid_country_id\' in \'where clause\' on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:00:51'),
+(4458, 'error', '<b>Warning trigger</b> [512] SQLSTATE[42S22]: Column not found: 1054 Unknown column \'webid_country_id\' in \'where clause\' on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:00:51'),
+(4459, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:51'),
+(4460, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:52'),
+(4461, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:52'),
+(4462, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:52'),
+(4463, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:00:52'),
+(4464, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:33'),
+(4465, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:33'),
+(4466, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:33'),
+(4467, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:33'),
+(4468, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:37'),
+(4469, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:37'),
+(4470, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:37'),
+(4471, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:37'),
+(4472, 'error', '<b>Warning trigger</b> [512] SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation \'like\' on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:01:50'),
+(4473, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:50'),
+(4474, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:50'),
+(4475, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:50'),
+(4476, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:50'),
+(4477, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:50'),
+(4478, 'error', '<b>Warning trigger</b> [512] SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation \'like\' on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:01:56'),
+(4479, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:57'),
+(4480, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:57'),
+(4481, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:57'),
+(4482, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:01:57'),
+(4483, 'error', '<b>Warning trigger</b> [512] SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation \'like\' on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:02:00'),
+(4484, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:00'),
+(4485, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:00'),
+(4486, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:00'),
+(4487, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:00'),
+(4488, 'error', '<b>Warning trigger</b> [512] SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation \'like\' on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:02:06'),
+(4489, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:06'),
+(4490, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:06'),
+(4491, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:06'),
+(4492, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:06'),
+(4493, 'error', '<b>Warning trigger</b> [512] SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation \'like\' on C:\\xampp_new_2\\htdocs\\includes\\database\\DatabasePDO.php line 215\n', 0, 0, '::1', '2021-01-08 12:02:15'),
+(4494, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:15'),
+(4495, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:15'),
+(4496, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_search.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:15'),
+(4497, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_browse.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:15'),
+(4498, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:02:15'),
+(4499, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_header.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:03:37'),
+(4500, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_home.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:03:37'),
+(4501, 'error', '<b>Warning</b> [2] fopen(C:\\xampp_new_2\\htdocs\\cache/tpl_modern_global_footer.tpl.php): failed to open stream: No such file or directory on C:\\xampp_new_2\\htdocs\\includes\\template\\TemplateCompile.php line 697\n', 0, 0, '::1', '2021-01-08 12:03:37');
 
 -- --------------------------------------------------------
 
@@ -9451,7 +9722,7 @@ CREATE TABLE `webid_online` (
 --
 
 INSERT INTO `webid_online` (`ID`, `SESSION`, `time`) VALUES
-(254, 'uId-2', '2021-01-07 14:00:22');
+(258, 'uId-2', '2021-01-08 12:03:37');
 
 -- --------------------------------------------------------
 
@@ -9874,7 +10145,8 @@ INSERT INTO `webid_useraccounts` (`useracc_id`, `auc_id`, `user_id`, `date`, `se
 (3, 1500, 2, '2020-11-07 23:02:07', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0),
 (4, 1500, 2, '2020-11-07 23:04:16', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0),
 (5, 11, 2, '2020-11-07 23:06:28', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0),
-(6, 0, 2, '2020-11-07 23:10:31', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0);
+(6, 0, 2, '2020-11-07 23:10:31', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0),
+(7, 0, 2, '2021-01-08 11:42:56', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0);
 
 -- --------------------------------------------------------
 
@@ -9936,11 +10208,11 @@ CREATE TABLE `webid_users` (
 --
 
 INSERT INTO `webid_users` (`id`, `nick`, `password`, `password_type`, `hash`, `name`, `address`, `city`, `prov`, `country`, `zip`, `phone`, `email`, `rate_sum`, `rate_num`, `birthdate`, `suspended`, `nletter`, `balance`, `auc_watch`, `item_watch`, `endemailmode`, `startemailmode`, `emailtype`, `reg_date`, `lastlogin`, `payment_details`, `groups`, `bn_only`, `timezone`, `language`, `country_id`) VALUES
-(2, 'Marcel', '$2a$08$9PpHk/h9kA7mlEqG/g.GCOkY/BeFKf0tI2gHRoGZMXmpGlgKqX4Fi', 1, '8a5n1', 'Marcel Sup', 'Ke Kapli 258', 'Bubovice', 'Czech republic', 'Czech Republic', '26718', '+420603165921', 'oktagon@seznam.cz', 3, 3, 19661128, 0, 1, 0.00, NULL, NULL, 'one', 'yes', 'html', '2020-06-19 10:00:58', '2021-01-07 09:42:48', NULL, '1,2', 'y', 'Europe/Belgrade', 'CS', 57),
+(2, 'Marcel', '$2a$08$9PpHk/h9kA7mlEqG/g.GCOkY/BeFKf0tI2gHRoGZMXmpGlgKqX4Fi', 1, '8a5n1', 'Marcel Sup', 'Ke Kapli 258', 'Bubovice', 'Czech republic', 'Czech Republic', '26718', '+420603165921', 'oktagon@seznam.cz', 3, 3, 19661128, 0, 1, 0.00, NULL, NULL, 'one', 'yes', 'html', '2020-06-19 10:00:58', '2021-01-08 09:56:31', NULL, '1,2', 'y', 'Europe/Belgrade', 'CS', 57),
 (3, 'Daniel', '$2a$08$QCp3NgPA8IVDYLWwfatnKuFbJFYbSkRxbRbweX3y6u3Uqtr0CEhvW', 1, '9dsxn', 'Daniel Sup', 'Ke Kapli 258', 'Bubovice', 'Czech republic', 'Czech Republic', '26718', '+420603165921', 'supmarcel@email.cz', 2, 2, 19940925, 0, 1, 0.00, NULL, NULL, 'one', 'yes', 'html', '2020-06-20 05:17:04', '2020-07-19 11:54:11', NULL, '1,2', 'y', 'Europe/Belgrade', 'CS', 57),
 (4, 'Daniel2', '$2a$08$QNymUb1eO1EZ7NMHBD8Y0eVLr/UeR62E3BEAQYkEQSNS3JpcdHwn.', 1, 'ez1v3', 'Daniel Sup', 'Ke Kapli 258', 'Bubovice', 'Czech republic', 'Czech Republic', '26718', '+420603165921', 'flakoncz@gmail.com', 1, 1, 19940825, 0, 1, 0.00, NULL, NULL, 'one', 'yes', 'html', '2020-06-20 05:20:43', '2020-06-27 17:52:46', NULL, '1,2', 'y', 'Europe/Belgrade', 'EN', 57),
 (5, 'Xxxxxx', '$2a$08$9myLChoM7wf9XhplraFbueL6a85qmlJKQm8qIXopEH72uK6JlYT3K', 1, 'fvkbx', 'Xxxxxx', 'Ke Kapli 258', 'Bubovice', 'Czech republic', 'Czech Republic', '26718', '+420603165921', 'supdaniel@seznam.cz', 0, 0, 19940825, 0, 1, 0.00, NULL, NULL, 'one', 'yes', 'html', '2020-06-27 17:09:54', '2020-06-27 19:22:23', NULL, '1,2', 'y', 'Europe/Belgrade', 'CS', 57),
-(6, 'DanielSup1994', '$2a$08$SmBP3tHYlnQQiRlMcQrsxOx81eb2yjE.L24jmWpdB1qpB0hJ3XT1.', 1, 'x3fd7', 'Daniel Sup', 'Ke Kapli 258', 'Bubovice', 'St?edo?eský kraj', 'Czech Republic', '26718', '', 'daniel.sup@post.cz', 0, 0, 19940825, 0, 1, 0.00, NULL, NULL, 'one', 'yes', 'html', '2021-01-06 12:52:17', '2021-01-06 12:54:17', NULL, '1,2', 'y', 'Europe/Belgrade', 'EN', 57);
+(6, 'DanielSup1994', '$2a$08$SmBP3tHYlnQQiRlMcQrsxOx81eb2yjE.L24jmWpdB1qpB0hJ3XT1.', 1, 'x3fd7', 'Daniel Sup', 'Ke Kapli 258', 'Bubovice', 'St?edo?eský kraj', 'Croatia', '26718', '', 'daniel.sup@post.cz', 0, 0, 19940825, 0, 1, 0.00, NULL, NULL, 'one', 'yes', 'html', '2021-01-06 12:52:17', '2021-01-07 14:20:40', NULL, '1,2', 'y', 'Europe/Belgrade', 'EN', 57);
 
 -- --------------------------------------------------------
 
@@ -10136,7 +10408,8 @@ ALTER TABLE `webid_auctions`
 --
 ALTER TABLE `webid_auctions_shipping_options`
   ADD KEY `fk_auction_id` (`auction_id`),
-  ADD KEY `fk_shipping_option_id` (`shipping_option_id`);
+  ADD KEY `fk_shipping_option_id` (`shipping_option_id`),
+  ADD KEY `fk_auctions_shipping_options` (`country_id`);
 
 --
 -- Klíče pro tabulku `webid_auction_moderation`
@@ -10402,7 +10675,7 @@ ALTER TABLE `webid_adminusers`
 -- AUTO_INCREMENT pro tabulku `webid_auctions`
 --
 ALTER TABLE `webid_auctions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pro tabulku `webid_auction_moderation`
@@ -10498,7 +10771,7 @@ ALTER TABLE `webid_increments`
 -- AUTO_INCREMENT pro tabulku `webid_logs`
 --
 ALTER TABLE `webid_logs`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4237;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4502;
 
 --
 -- AUTO_INCREMENT pro tabulku `webid_membertypes`
@@ -10522,7 +10795,7 @@ ALTER TABLE `webid_news`
 -- AUTO_INCREMENT pro tabulku `webid_online`
 --
 ALTER TABLE `webid_online`
-  MODIFY `ID` bigint(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
+  MODIFY `ID` bigint(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=259;
 
 --
 -- AUTO_INCREMENT pro tabulku `webid_payment_options`
@@ -10558,7 +10831,7 @@ ALTER TABLE `webid_tax`
 -- AUTO_INCREMENT pro tabulku `webid_useraccounts`
 --
 ALTER TABLE `webid_useraccounts`
-  MODIFY `useracc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `useracc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pro tabulku `webid_usergateways`
@@ -10644,6 +10917,7 @@ ALTER TABLE `webid_auctions`
 --
 ALTER TABLE `webid_auctions_shipping_options`
   ADD CONSTRAINT `fk_auction_id` FOREIGN KEY (`auction_id`) REFERENCES `webid_auctions` (`id`),
+  ADD CONSTRAINT `fk_auctions_shipping_options` FOREIGN KEY (`country_id`) REFERENCES `webid_countries` (`country_id`),
   ADD CONSTRAINT `fk_shipping_option_id` FOREIGN KEY (`shipping_option_id`) REFERENCES `webid_shipping_options` (`id`);
 
 --
