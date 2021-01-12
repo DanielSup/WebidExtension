@@ -98,7 +98,7 @@ $_SESSION['INVOICE_RETURN'] = 'outstanding.php';
 $template->assign_vars(array(
         'USER_BALANCE' => $system->print_money($user_balance),
         'PAY_BALANCE' => $system->print_money_nosymbol(($user_balance < 0) ? 0 - $user_balance : 0),
-        'CURRENCY' => $system->SETTINGS['currency'],
+        'CURRENCY' => $default_currency,
 
         'PREV' => ($PAGES > 1 && $PAGE > 1) ? '<a href="' . $system->SETTINGS['siteurl'] . 'outstanding.php?PAGE=' . $PREV . '"><u>' . $MSG['5119'] . '</u></a>&nbsp;&nbsp;' : '',
         'NEXT' => ($PAGE < $PAGES) ? '<a href="' . $system->SETTINGS['siteurl'] . 'outstanding.php?PAGE=' . $NEXT . '"><u>' . $MSG['5120'] . '</u></a>' : '',

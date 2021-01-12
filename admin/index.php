@@ -165,7 +165,7 @@ $template->assign_vars(array(
         'CRON' => ($system->SETTINGS['cron'] == 1) ? '<b>' . $MSG['batch'] . '</b><br>' . $MSG['25_0027'] : '<b>' . $MSG['non_batch'] . '</b>',
         'GALLERY' => ($system->SETTINGS['picturesgallery'] == 1) ? '<b>' . $MSG['2__0066'] . '</b><br>' . $MSG['gallery_images_allowance'] . ': ' . $system->SETTINGS['maxpictures'] . '<br>' . $MSG['gallery_image_max_kb'] . ': ' . $system->SETTINGS['maxuploadsize']/1024 . ' KB' : '<b>' . $MSG['2__0067'] . '</b>',
         'BUY_NOW' => ($system->SETTINGS['buy_now'] == 1) ? '<b>' . $MSG['2__0067'] . '</b>' : '<b>' . $MSG['2__0066'] . '</b>',
-        'CURRENCY' => $system->SETTINGS['currency'],
+        'CURRENCY' => $default_currency,
         'TIMEZONE' => $timezones[$system->SETTINGS['timezone']],
         'DATEFORMAT' => $system->SETTINGS['datesformat'],
         'DATEEXAMPLE' => ($system->SETTINGS['datesformat'] == 'USA') ? $MSG['american_dates'] : $MSG['european_dates'],

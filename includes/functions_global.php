@@ -331,10 +331,32 @@ class global_class
         return $this->currencies[$rate_id];
     }
 
+    public function get_default_currency_for_current_user(){
+        global $DBPrefix, $db, $user;
+        if ($user->logged_in) {
+            if (isset($this->default_currency)){
+                return $this->default_currency;
+            }
+
+            $country = $user->user_data['country'];
+            $query = "SELECT * FROM ". $DBPrefix . "rates";
+            $query .= " INNER JOIN " . $DBPrefix . "countries ON " .  $DBPrefix . "rates.id = " . $DBPrefix . "countries.rate_id";
+            $query .= " WHERE " . $DBPrefix . "countries.country = \"$country\"";
+            $db->direct_query($query);
+            while($currency = $db->fetch()){
+                $this->default_currency = $currency['symbol'];
+            }
+            return $this->default_currency;
+        } else {
+            return $this->SETTINGS['currency'];
+        }
+    }
+
     public function print_money($str, $from_database = true, $bold = true, $rate_id = null)
     {
         $str = $this->print_money_nosymbol($str, $from_database);
-        $currency = $rate_id === null ? $this->SETTINGS['currency'] : $this->get_currency_code_from_rate_id($rate_id);
+        $default_currency = $this->get_default_currency_for_current_user();
+        $currency = $rate_id === null ? $default_currency : $this->get_currency_code_from_rate_id($rate_id);
 
         if ($bold) {
             $str = '<b>' . $str . '</b>';

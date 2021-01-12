@@ -570,7 +570,7 @@ if (!isset($_POST['action']) || isset($errmsg)) {
             'QTY' => $qty,
             'TQTY' => $aquantity,
             'AGREEMENT' => sprintf($MSG['25_0086'], $system->print_money($qty * $bid)),
-            'CURRENCY' => $system->SETTINGS['currency'],
+            'CURRENCY' => $default_currency,
 
             'B_USERAUTH' => ($system->SETTINGS['usersauth'] == 'y')
             ));

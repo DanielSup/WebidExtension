@@ -1,0 +1,30 @@
+využití $default_currency
+
+invoices.php
+currency.php
+admin/fees.php
+admin/index.php
+adsearch.php
+bid.php
+outstanding.php
+pay.php
+sell.php
+
+
+$system->print_money, nebo $this->print_money
+projít adresáře
+admin:
+
+includes:
+seller_partial_winner
+endauction_youwin
+User
+browseitems.inc
+auction_confirmation
+auction_pending
+auction_pending_moderation
+
+
+
+
+defaultní adresář .

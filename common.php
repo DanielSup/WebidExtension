@@ -83,3 +83,5 @@ if (isset($_SESSION['REDIRECT_AFTER_LOGIN']) && !defined('AtLogin')) {
 $system->load_currencies();
 
 $template->set_template();
+
+$default_currency = $system->get_default_currency_for_current_user();

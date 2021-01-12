@@ -257,7 +257,7 @@ function updateauction()
     $params[] = array(':taxinc', $_SESSION['SELL_tax_included'], 'bool');
     $params[] = array(':fee', $fee, 'float');
     $params[] = array(':auction_id', $_SESSION['SELL_auction_id'], 'int');
-    $params[] = array(':rate_id', $_SESSION, 'int');
+    $params[] = array(':rate_id', $_SESSION['SELL_currency'], 'int');
     if ($caneditstartdate) {
         $query .= ", starts = :starts";
         $params[] = array(':starts', $dt->convertToUTC($a_starts), 'str');

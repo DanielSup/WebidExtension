@@ -26,7 +26,7 @@ abstract class Database
     protected $error;
     protected $error_supress;
     protected $fetch_methods = [];
-    
+
     public $DBPrefix;
 
     public function __construct()

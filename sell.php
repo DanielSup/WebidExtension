@@ -697,7 +697,7 @@ switch ($_SESSION['action']) {
                 'ATYPE' => $TPL_auction_type,
                 'ATYPE_PLAIN' => $atype,
                 'CURRENCY_SELECT' => $currency_select,
-                'CURRENCY' => $system->SETTINGS['currency'],
+                'CURRENCY' => $default_currency,
                 'DURATIONS' => $TPL_durations_list,
                 'PAYMENTS' => $payment_methods,
                 'PAGE' => 0,

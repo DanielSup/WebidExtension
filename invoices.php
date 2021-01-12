@@ -149,7 +149,7 @@ if ($PAGES > 1) {
 
 $_SESSION['INVOICE_RETURN'] = 'invoices.php';
 $template->assign_vars(array(
-        'CURRENCY' => $system->SETTINGS['currency'],
+        'CURRENCY' => $default_currency,
 
         'PREV' => ($PAGES > 1 && $PAGE > 1) ? '<a href="' . $system->SETTINGS['siteurl'] . 'invoices.php?PAGE=' . $PREV . '"><u>' . $MSG['5119'] . '</u></a>&nbsp;&nbsp;' : '',
         'NEXT' => ($PAGE < $PAGES) ? '<a href="' . $system->SETTINGS['siteurl'] . 'invoices.php?PAGE=' . $NEXT . '"><u>' . $MSG['5120'] . '</u></a>' : '',

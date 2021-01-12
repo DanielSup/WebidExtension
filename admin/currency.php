@@ -59,7 +59,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
 }
 
 foreach ($CURRENCIES_SYMBOLS as $k => $v) {
-    if ($v == $system->SETTINGS['currency']) {
+    if ($v == $default_currency) {
         $selectsetting = $k;
     }
 }

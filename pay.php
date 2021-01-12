@@ -204,7 +204,7 @@ while ($gateway = $db->fetch()) {
 
         // TODO: need a better way to deal with these
         'AN_SEQUENCE' => $sequence,
-        'AN_KEY' => ($gateway['name'] == 'authnet') ? $fees->hmac($password, $address . "^" . $sequence . "^" . $timestamp . "^" . $pay_val . "^" . $system->SETTINGS['currency']) : '',
+        'AN_KEY' => ($gateway['name'] == 'authnet') ? $fees->hmac($password, $address . "^" . $sequence . "^" . $timestamp . "^" . $pay_val . "^" . $default_currency) : '',
         ));
 }
 
@@ -213,7 +213,7 @@ $template->assign_vars(array(
         'SANDBOX' => $system->SETTINGS['payment_gateway_sandbox'],
         // item values
         'PAY_VAL' => $pay_val,
-        'CURRENCY' => $system->SETTINGS['currency'],
+        'CURRENCY' => $default_currency,
         'TITLE' => $title,
         'CUSTOM_CODE' => $custoncode,
         'TIMESTAMP' => $timestamp,

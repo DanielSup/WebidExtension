@@ -72,7 +72,7 @@ if (isset($_GET['type']) && isset($fees[$_GET['type']])) {
 
         $template->assign_vars(array(
                 'VALUE' => $system->print_money_nosymbol($value),
-                'CURRENCY' => $system->SETTINGS['currency']
+                'CURRENCY' => $default_currency
                 ));
     } elseif ($fees[$_GET['type']] == 1) {
         $level_added = false;
@@ -142,7 +142,7 @@ if (isset($_GET['type']) && isset($fees[$_GET['type']])) {
         }
 
         $template->assign_vars(array(
-                'CURRENCY' => $system->SETTINGS['currency'],
+                'CURRENCY' => $default_currency,
                 'FEE_FROM' => (isset($_POST['new_fee_from']) && !$level_added) ? $_POST['new_fee_from'] : '',
                 'FEE_TO' => (isset($_POST['new_fee_to']) && !$level_added) ? $_POST['new_fee_to'] : '',
                 'FEE_VALUE' => (isset($_POST['new_value']) && !$level_added) ? $_POST['new_value'] : '',

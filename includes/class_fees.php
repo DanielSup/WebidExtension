@@ -306,7 +306,7 @@ class fees
                 );
                 $this->database->query($query, $params);
 
-                $query = "SELECT category, title, minimum_bid, pict_url, buy_now, reserve_price, auction_type, ends
+                $query = "SELECT category, title, minimum_bid, pict_url, buy_now, reserve_price, auction_type, ends, rate_id
 					FROM " . $this->DBPrefix . "auctions WHERE id = :auc_id";
                 $params = array(
                     array(':auc_id', $auc_id, 'int')
@@ -318,6 +318,7 @@ class fees
                 $auction_id = $auc_id;
                 $title = htmlspecialchars($auc_data['title']);
                 $atype = $auc_data['auction_type'];
+                $currency = $auc_data['rate_id'];
                 $pict_url = $auc_data['pict_url'];
                 $minimum_bid = $auc_data['minimum_bid'];
                 $reserve_price = $auc_data['reserve_price'];
