@@ -174,6 +174,15 @@ $(document).ready(function() {
 <!-- ENDIF -->
 <!-- IF B_HASENDED -->
 						<tr>
+							<td colspan="2" align="left">
+								<a class="addthis_button_compact"></a>
+								<a class="addthis_button_email"></a>
+								<a class="addthis_button_facebook"></a>
+								<a class="addthis_button_twitter"></a>
+							</td>
+							<script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js"></script>
+						</tr>
+						<tr>
 							<td colspan="2" align="left"><b>{L_904}</b></td>
 						</tr>
 <!-- ENDIF -->

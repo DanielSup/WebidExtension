@@ -858,9 +858,10 @@ $MSG['1153'] = 'Tisk faktury';
 $MSG['1200'] = 'Skupiny';
 $MSG['1201'] = 'Založit skupinu';
 $MSG['1202'] = 'Název skupiny';
-$MSG['1203'] = 'Přidat se do skupiny';
+$MSG['1203'] = 'Přidat se do vybraných skupin';
 $MSG['1204'] = 'Zrušit členství ve skupině';
 $MSG['1205'] = 'Založení skupiny';
+$MSG['1206'] = 'Moje skupiny';
 
 $MSG['5000'] = 'Chcete-li zobrazit tuto stránku, musíte být přihlášeni';
 $MSG['5001'] = 'Zobrazit stránku';
@@ -1267,3 +1268,4 @@ $MSG['count_seconds'] = " sekundy";
 $MSG['count_second'] = " sekunda";
 
 $MSG['error_duplicate_group_name'] = "Pokoušíte se přidat skupinu s názvem již existující skupiny, nebo názvem podobným existující skupině. Název skupiny musí být unikátní a nesmí začínat stejným slovem jako název jiné skupiny. Prosím nazvěte skupinu jinak.";
+$MSG['note_name_group_as_facebook_group'] = "Prosím pojmenujte skupinu přesně podle skupiny na Facebooku, která má alespoň 100 členů.";

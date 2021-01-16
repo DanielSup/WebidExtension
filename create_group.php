@@ -18,9 +18,11 @@ while ($group = $db->fetch()){
 
 if ($group_with_same_or_similar_title) {
     $_SESSION["error_value_title"] = $_POST["title"];
-    header("Location: /edit_data.php?error_duplicate_group_name=true");
+    $_SESSION["error_duplicate_group_name"] = true;
+    header("Location: /groups.php");
 } else {
     unset($_SESSION["error_value_title"]);
+    unset($_SESSION["error_duplicate_group_name"]);
     // creating new group
     $query = "INSERT INTO " . $DBPrefix . "user_groups (title) VALUES(:title)";
 
@@ -30,7 +32,7 @@ if ($group_with_same_or_similar_title) {
 
     addCurrentUserToGroup($db->lastInsertId());
 
-    header("Location: /edit_data.php");
+    header("Location: /groups.php");
 }
 
 function lowercaseFirstWord($string){

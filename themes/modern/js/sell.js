@@ -1,6 +1,5 @@
 class CountriesSellFormModule {
     constructor(shippingOptionsForSelect){
-        console.log("setting from constructor");
         this.shippingOptionsForSelect = shippingOptionsForSelect;
     }
 

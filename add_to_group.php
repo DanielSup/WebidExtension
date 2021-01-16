@@ -2,7 +2,7 @@
 include './common.php';
 include INCLUDE_PATH . 'functions_user_groups.php';
 
-addCurrentUserToGroup($_GET['group_id']);
+addCurrentUserToGroups($_POST['groups']);
 
-header("Location: /edit_data.php");
+header("Location: /groups.php");
 exit();

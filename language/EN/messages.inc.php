@@ -859,9 +859,10 @@ $MSG['1153'] = 'Print Invoice';
 $MSG['1200'] = 'Groups';
 $MSG['1201'] = 'Create group';
 $MSG['1202'] = 'Title of the group';
-$MSG['1203'] = 'Add to group';
+$MSG['1203'] = 'Add to selected groups';
 $MSG['1204'] = 'Cancel membership in group';
 $MSG['1205'] = 'Adding group';
+$MSG['1206'] = 'My groups';
 
 $MSG['5000'] = 'You must be logged in to see this page';
 $MSG['5001'] = 'View Site';
@@ -1267,3 +1268,4 @@ $MSG['count_seconds'] = " seconds";
 $MSG['count_second'] = " second";
 
 $MSG['error_duplicate_group_name'] = "You are trying to add a group with the same or similar title as existing group. Title of group must be unique and first word of the title can't be the same as the first word of title of a different group. Please add a group with a different title.";
+$MSG['note_name_group_as_facebook_group'] = "Please name the group exactly as a group on Facebook which has at least 100 members.";

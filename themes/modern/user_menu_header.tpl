@@ -15,6 +15,7 @@
 					<li><a href="invoices.php">{L_1057}</a></li>
 					<li><a href="selleremails.php">{L_25_0188}</a></li>
 					<li><a href="edit_data.php">{L_621}</a></li>
+					<li><a href="groups.php">{L_1200}</a></li>
 				</ul>
 			</div>
 			<div class="btn-group" role="group">
@@ -59,6 +60,7 @@
 				<a class="list-group-item disabled" href="#">{L_244}</a>
 				<a class="list-group-item" href="selleremails.php">{L_25_0188}</a>
 				<a class="list-group-item" href="edit_data.php">{L_621}</a>
+				<a class="list-group-item" href="groups.php">{L_1200}</a>
 <!-- IF B_CAN_SELL -->
 				<a class="list-group-item disabled" href="{SITEURL}user_menu.php?cptab=selling">{L_25_0082}</a>
 				<a class="list-group-item" href="{SITEURL}select_category.php?">{L_028}</a>
