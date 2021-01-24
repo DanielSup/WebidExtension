@@ -335,7 +335,6 @@ switch ($_SESSION['action']) {
                 $noerror = false;
             }
         }
-        $_SESSION['countries'] = $_POST['countries'];
         if ($noerror) {
             // payment methods
             $payment_methods = '';
@@ -385,7 +384,7 @@ switch ($_SESSION['action']) {
                 $corrected_fee = 0;
             }
 
-            $countries = '<ul>';
+            $countries_list = '<ul>';
             foreach($_SESSION['countries'] as $country){
                 if($country['id'] == ''){
                     break;
@@ -412,10 +411,10 @@ switch ($_SESSION['action']) {
                 $country_item .= $shipping_options_list;
 
                 $country_item .= '</li>';
-                $countries .= $country_item;
+                $countries_list .= $country_item;
             }
 
-            $countries .= '</ul>';
+            $countries_list .= '</ul>';
 
             $template->assign_vars(array(
                     'TITLE' => htmlspecialchars($title),
@@ -445,7 +444,7 @@ switch ($_SESSION['action']) {
                     'CAT_LIST1' => $category_string1,
                     'CAT_LIST2' => $category_string2,
                     'FEE' => number_format($corrected_fee, $system->SETTINGS['moneydecimals']),
-                    'ALL_COUNTRIES' => $countries,
+                    'ALL_COUNTRIES' => $countries_list,
                     'B_USERAUTH' => ($system->SETTINGS['usersauth'] == 'y'),
                     'B_BN_ONLY' => (!($system->SETTINGS['buy_now'] == 2 && $buy_now_only)),
                     'B_BN' => ($system->SETTINGS['buy_now'] == 2),
@@ -522,8 +521,7 @@ switch ($_SESSION['action']) {
         $handle_shipping_options_for_selected_countries = '';
         $selected_countries = '';
         $first_country_to_select = 1;
-        if (isset($_SESSION['countries'])){
-            $countries = $_SESSION['countries'];
+        if (isset($countries)){
             foreach($countries as $id => $country){
                 if ($country['id'] == ''){
                     break;
@@ -532,7 +530,7 @@ switch ($_SESSION['action']) {
                 $country_label_start = $first_country_to_select == 1 ? 'Country' : 'Another country';
                 $selected_country .= "<label>$country_label_start where you want to deliver the item</label>";
 
-                $country_select = "<select name=\"countries[$id][id]\" id=\"countries[$id][id]\">";
+                $country_select = "<select class=\"form-control\" name=\"countries[$id][id]\" id=\"countries[$id][id]\">";
                 $country_id = $country["id"];
                 $country_name = $possible_countries[$country_id];
                 $country_select .= "<option value='$country_id'>$country_name</option>";
@@ -568,7 +566,7 @@ switch ($_SESSION['action']) {
         }
 
         // countries
-        $all_countries = "<select name=\"countries[$first_country_to_select][id]\" id=\"countries[$first_country_to_select][id]\">";
+        $all_countries = "<select class=\"form-control\" name=\"countries[$first_country_to_select][id]\" id=\"countries[$first_country_to_select][id]\">";
         $all_countries .= "<option value=''></option>";
         foreach($possible_countries as $id => $possible_country){
             $all_countries .= "<option value='$id'>$possible_country</option>";

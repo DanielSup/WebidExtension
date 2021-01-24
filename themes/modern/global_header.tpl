@@ -80,14 +80,6 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<div class="input-group">
-						<input type="text" class="form-control" name="q" value="{Q}" placeholder="{L_861}">
-						<span class="input-group-btn">
-							<button type="submit" class="btn btn-primary" name="sub" value="{L_399}">{L_399}</button>
-						</span>
-					</div>
-				</div>
-				<div class="form-group">
 					<select class="form-control" name="id">
 						{SELECTION_BOX}
 					</select>

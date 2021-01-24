@@ -32,7 +32,7 @@ function setvars()
 {
     global $with_reserve, $reserve_price, $minimum_bid, $pict_url, $imgtype, $title, $subtitle, $sdescription, $atype, $iquantity, $buy_now, $buy_now_price, $is_taxed, $tax_included, $additional_shipping_cost;
     global $duration, $relist, $increments, $customincrement, $shipping, $shipping_terms, $payment, $international, $sellcat1, $sellcat2, $buy_now_only, $a_starts, $shipping_cost, $is_bold, $is_highlighted, $is_featured, $start_now;
-    global $_POST, $_SESSION, $system, $custom_end, $a_ends, $custom_end, $caneditstartdate, $dt;
+    global $_POST, $_SESSION, $system, $custom_end, $a_ends, $custom_end, $caneditstartdate, $dt, $countries;
 
     $with_reserve = (isset($_POST['with_reserve'])) ? $_POST['with_reserve'] : $_SESSION['SELL_with_reserve'];
     $reserve_price = (isset($_POST['reserve_price'])) ? $_POST['reserve_price'] : $_SESSION['SELL_reserve_price'];
@@ -71,6 +71,9 @@ function setvars()
     $duration = (isset($_POST['duration'])) ? $_POST['duration'] : $_SESSION['SELL_duration'];
     $a_ends = (isset($_POST['a_ends'])) ? $dt->convertToDatetime($_POST['a_ends']) : $_SESSION['SELL_ends'];
 
+    $default_countries = array();
+    $countries = (isset($_POST['countries'])) ? $_POST['countries'] : (isset($_SESSION['countries']) ? $_SESSION['countries'] : $default_countries);
+
     // deal with checkboxes
     if (isset($_POST['action']) && $_POST['action'] == 3) {
         $is_bold = (isset($_POST['is_bold'])) ? 1 : 0;
@@ -106,7 +109,7 @@ function makesessions()
 {
     global $with_reserve, $reserve_price, $minimum_bid, $pict_url, $imgtype, $title, $subtitle, $sdescription, $pict_url, $atype, $iquantity, $buy_now, $buy_now_price, $is_taxed, $tax_included, $additional_shipping_cost;
     global $duration, $relist, $increments, $customincrement, $shipping, $shipping_terms, $payment, $international, $sendemail, $buy_now_only, $a_starts, $shipping_cost, $is_bold, $is_highlighted, $is_featured, $start_now, $_SESSION;
-    global $a_ends, $custom_end, $caneditstartdate;
+    global $a_ends, $custom_end, $caneditstartdate, $countries;
 
     $_SESSION['SELL_with_reserve'] = $with_reserve;
     $_SESSION['SELL_reserve_price'] = $reserve_price;
@@ -141,6 +144,7 @@ function makesessions()
     $_SESSION['SELL_is_taxed'] = $is_taxed;
     $_SESSION['SELL_tax_included'] = $tax_included;
     $_SESSION['SELL_caneditstartdate'] = $caneditstartdate;
+    $_SESSION['countries'] = $countries;
 }
 
 function unsetsessions()
@@ -182,6 +186,7 @@ function unsetsessions()
     $_SESSION['SELL_is_taxed'] = 0;
     $_SESSION['SELL_tax_included'] = 0;
     $_SESSION['SELL_caneditstartdate'] = true;
+    $_SESSION['countries'] = array();
 }
 
 function updateauction()
@@ -259,6 +264,56 @@ function updateauction()
     }
     $query .= ' WHERE id = :auction_id';
     $db->query($query, $params);
+
+    $query = "SELECT * FROM " . $DBPrefix . "auctions_shipping_options WHERE auction_id = :auction_id";
+    $params = array();
+    $params[] = array(':auction_id', $_SESSION['SELL_auction_id'], 'int');
+    $db->query($query, $params);
+
+    $available_shipping_options = array();
+    $shipping_options_to_delete = array();
+    while ($country = $db->fetch()){
+        $country_id = $country['country_id'];
+        $shipping_option_id = $country['shipping_option_id'];
+        $shipping_option = [$country_id, $shipping_option_id];
+        array_push($available_shipping_options, $shipping_option);
+        if (array_key_exists($shipping_option, $_SESSION['countries']) === false){
+            array_push($shipping_options_to_delete, $shipping_option);
+        }
+    }
+
+    foreach ($shipping_options_to_delete as $shipping_option_to_delete) {
+        $query = "DELETE FROM " . $DBPrefix . "auctions_shipping_options WHERE auction_id = :auction_id
+            AND country_id = :country_id AND shipping_option_id = :shipping_option_id";
+        $params = array();
+        $params[] = array(':auction_id', $_SESSION['SELL_auction_id'], 'int');
+        $params[] = array(':country_id', $shipping_option_to_delete[0], 'int');
+        $params[] = array(':shipping_option_id', $shipping_option_to_delete[1], 'int');
+        $db->query($query, $params);
+    }
+
+    $countries = $_SESSION['countries'];
+    foreach ($countries as $id => $country){
+        $shipping_options = $country['shipping_options'];
+        foreach ($shipping_options as $id => $shipping_option){
+            $params = array();
+            $params[] = array(':auction_id', $_SESSION['SELL_auction_id'], 'int');
+            $params[] = array(':country_id', $country['id'], 'int');
+            $params[] = array(':shipping_option_id', $shipping_option['id'], 'int');
+
+            $shipping_option_array = [intval($country['id']), intval($shipping_option['id'])];
+            if (in_array($shipping_option_array, $available_shipping_options)){
+                $query = "UPDATE " . $DBPrefix . "auctions_shipping_options WHERE auction_id = :auction_id
+                    AND country_id = :country_id AND shipping_option_id = :shipping_option_id";
+            } else {
+                $query = "INSERT INTO " . $DBPrefix . "auctions_shipping_options (auction_id, shipping_option_id, title, shipping_for_first_item, shipping_for_second_item, country_id) VALUES (:auction_id, :shipping_option_id, :title, :shipping_for_first_item, :shipping_for_second_item, :country_id)";
+                $params[] = array(':title', $shipping_option['title'], 'str');
+                $params[] = array(':shipping_for_first_item', $shipping_option['shipping-for-first-item'], 'int');
+                $params[] = array(':shipping_for_second_item', $shipping_option['shipping-for-second-item'], 'int');
+            }
+            $db->query($query, $params);
+        }
+    }
 }
 
 function addauction()
@@ -316,13 +371,14 @@ function addauction()
                 break;
             }
 
-            $query = "INSERT INTO " . $DBPrefix . "auctions_shipping_options (auction_id, shipping_option_id, title, shipping_for_first_item, shipping_for_second_item) VALUES (:auction_id, :shipping_option_id, :title, :shipping_for_first_item, :shipping_for_second_item)";
+            $query = "INSERT INTO " . $DBPrefix . "auctions_shipping_options (auction_id, shipping_option_id, title, shipping_for_first_item, shipping_for_second_item, country_id) VALUES (:auction_id, :shipping_option_id, :title, :shipping_for_first_item, :shipping_for_second_item, :country_id)";
             $params = array();
             $params[] = array(':auction_id', $auction_id, 'int');
             $params[] = array(':shipping_option_id', $shipping_option['id'], 'int');
             $params[] = array(':title', $shipping_option['title'], 'str');
             $params[] = array(':shipping_for_first_item', $shipping_option['shipping-for-first-item'], 'int');
             $params[] = array(':shipping_for_second_item', $shipping_option['shipping-for-second-item'], 'int');
+            $params[] = array(':country_id', $country['id'], 'int');
             $db->query($query, $params);
         }
     }
@@ -610,7 +666,7 @@ function alert_auction_watchers($id, $title, $description)
 function formGroupForShippingOptionField($label, $type, $name, $value){
     $form_group = "<div class='form-group col-md-12 dutchhide'>";
     $form_group .= "<label>$label</label>";
-    $form_group .= "<div><input type='$type' name='$name' id='$name' value='$value' /></div>";
+    $form_group .= "<div><input class='form-control' type='$type' name='$name' id='$name' value='$value' /></div>";
     $form_group .= "</div>";
     return $form_group;
 }
@@ -623,7 +679,7 @@ function addShippingOption($country_index, $shipping_option_index, $shipping_opt
     # adding select with already selected shipping option
     $shipping_option_select_id_prefix = "countries[$country_index][shipping-options][$shipping_option_index]";
     $shipping_option_select_id = $shipping_option_select_id_prefix . '[id]';
-    $shipping_option_select = "<select name='$shipping_option_select_id' id='$shipping_option_select_id'>";
+    $shipping_option_select = "<select class='form-control' name='$shipping_option_select_id' id='$shipping_option_select_id'>";
     if ($shipping_option_array == null){
         $shipping_option_select .= "<option value=''></option>";
     }
@@ -639,10 +695,9 @@ function addShippingOption($country_index, $shipping_option_index, $shipping_opt
         $shipping_option .= formGroupForShippingOptionField('Title', 'text', $shipping_option_select_id_prefix . '[title]', $shipping_option_array['title']);
         $shipping_option .= formGroupForShippingOptionField('Shipping cost for first item', 'number', $shipping_option_select_id_prefix . '[shipping-for-first-item]', $shipping_option_array['shipping-for-first-item']);
         $shipping_option .= formGroupForShippingOptionField('Shipping cost for second and further item', 'number', $shipping_option_select_id_prefix . '[shipping-for-second-item]', $shipping_option_array['shipping-for-second-item']);
+        $remove_button = "<button type='button' onclick='removeShippingOptionForCountry($country_index, $shipping_option_index)'>Delete shipping option</button>";
+        $shipping_option .= $remove_button;
     }
-
-    $remove_button = "<button type='button' onclick='removeShippingOptionForCountry($country_index, $shipping_option_index)'>Delete shipping option</button>";
-    $shipping_option .= $remove_button;
 
     $shipping_option .= "</div>";
     return $shipping_option;

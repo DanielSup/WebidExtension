@@ -30,7 +30,7 @@ if (isset($_POST['action']) && isset($_POST['username']) && isset($_POST['passwo
     $db->query($query, $params);
     $user_data = $db->result();
 
-    if ($user_data['password_type'] == 0 && $user_data['password'] == md5($MD5_PREFIX . $_POST['password'])) {
+    if ($user_data !== false && $user_data['password_type'] == 0 && $user_data['password'] == md5($MD5_PREFIX . $_POST['password'])) {
         $query = "UPDATE " . $DBPrefix . "users SET password = :password, password_type = 1 WHERE id = :user_id";
         $params = array();
         $params[] = array(':password', $phpass->HashPassword($_POST['password']), 'int');
@@ -45,7 +45,7 @@ if (isset($_POST['action']) && isset($_POST['username']) && isset($_POST['passwo
         $user_data = $db->result();
     }
 
-    if ($phpass->CheckPassword($_POST['password'], $user_data['password'])) {
+    if ($user_data !== false && $phpass->CheckPassword($_POST['password'], $user_data['password'])) {
         // generate a random unguessable token
         $_SESSION['csrftoken'] = md5(uniqid(rand(), true));
 

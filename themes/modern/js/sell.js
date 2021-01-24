@@ -34,6 +34,7 @@ class CountriesSellFormModule {
         divWithLabel.appendChild(label);
 
         const countriesSelect = document.createElement('select');
+        countriesSelect.setAttribute('class', 'form-control');
         countriesSelect.setAttribute('name', 'countries[' + order + '][id]');
         countriesSelect.setAttribute('id', 'countries[' + order + '][id]');
         const countriesSelectOptions = $('#countries\\[' + (order - 1) + '\\]\\[id\\] option:not(:selected)');
@@ -93,6 +94,25 @@ class CountriesSellFormModule {
         const shippingSecondItemId = shippingOptionFieldIdPrefix + '[shipping-for-second-item]';
         const shippingSecondItemFormGroup = this.formGroupForField('Shipping cost for second and further item', shippingSecondItemId, shippingSecondItemId, 'number');
         shippingOptionFormGroup.append(shippingSecondItemFormGroup);
+
+        if (shippingOptionFormGroup.getElementsByTagName('button').length > 0){
+            const deleteButton = shippingOptionFormGroup.getElementsByTagName('button')[0];
+            shippingOptionFormGroup.removeChild(deleteButton);
+            shippingOptionFormGroup.appendChild(deleteButton);
+        } else {
+            const deleteButton = this.createDeleteButtonForShippingOption(order, shippingOptionOrder);
+            shippingOptionFormGroup.appendChild(deleteButton);
+        }
+    }
+
+    createDeleteButtonForShippingOption(order, shippingOptionOrder){
+        let deleteButton = document.createElement('button');
+        deleteButton.setAttribute('type', 'button');
+
+        const deleteShippingOptionCall = 'removeShippingOptionForCountry(' + order + ', ' + shippingOptionOrder + ')';
+        deleteButton.setAttribute('onclick', deleteShippingOptionCall);
+        deleteButton.innerHTML = 'Delete shipping option';
+        return deleteButton;
     }
 
     shippingOptionSelectFormGroup(order, shippingOptionOrder){
@@ -104,6 +124,7 @@ class CountriesSellFormModule {
         shippingOptionSelectFormGroup.append(label);
 
         const elementForSelection = document.createElement('select');
+        elementForSelection.setAttribute('class', 'form-control');
         elementForSelection.setAttribute('name', 'countries[' + order + '][shipping-options][' + shippingOptionOrder + '][id]');
         elementForSelection.setAttribute('id', 'countries[' + order + '][shipping-options][' + shippingOptionOrder + '][id]');
 
@@ -132,6 +153,7 @@ class CountriesSellFormModule {
 
         const elementForField = document.createElement('div');
         const field = document.createElement('input');
+        field.setAttribute('class', 'form-control');
         field.setAttribute('type', fieldType);
         field.setAttribute('name', name);
         field.setAttribute('id', id);
@@ -149,23 +171,26 @@ class CountriesSellFormModule {
 
 function removeShippingOptionForCountry(countryOrder, shippingOptionOrder){
     const currentFormGroupId = "country-definition-" +  countryOrder + "-shipping-option-" + shippingOptionOrder;
+    // const shippingOptions = document.getElementById("countries[" + countryOrder + "][shipping-options][" + shippingOptionOrder + "][id]").innerHTML;
+    // const countriesSellFormModule = new CountriesSellFormModule(shippingOptions);
     $('#' + currentFormGroupId).remove();
 
-    $('#country-definition-' + countryOrder + ' input, #country-definition-' + countryOrder + ' ' + 'select').each(function(){
-        const id = $(this).attr("id");
-        if (id.includes("[shipping-options]")) {
-            const elementsFromId = id.split("[");
-            const orderString = elementsFromId[3].replace("[", "");
-            const order = parseInt(orderString);
-            if (order > shippingOptionOrder) {
-                const newId = id.replace("[shipping-options][" + order + "]", "[shipping-options][" + (order - 1) + "]");
-                $(this).attr("id", newId);
-                $(this).attr("name", newId);
-
-                const formGroupId = "country-definition-" + countryOrder + "-shipping-option-" + order;
-                const formGroupNewId = formGroupId.replace("shipping-option-" + order, "shipping-option-" + (order - 1));
-                $("#" + formGroupId).attr("id", formGroupNewId);
-            }
-        }
-    });
+    // $('#country-definition-' + countryOrder + ' input, #country-definition-' + countryOrder + ' ' + 'select').each(function(){
+    //     const id = $(this).attr("id");
+    //     if (id.includes("[shipping-options]")) {
+    //         const elementsFromId = id.split("[");
+    //         const orderString = elementsFromId[3].replace("[", "");
+    //         const order = parseInt(orderString);
+    //         if (order > shippingOptionOrder) {
+    //             const newId = id.replace("[shipping-options][" + order + "]", "[shipping-options][" + (order - 1) + "]");
+    //             $(this).attr("id", newId);
+    //             $(this).attr("name", newId);
+    //
+    //             const formGroupId = "country-definition-" + countryOrder + "-shipping-option-" + order;
+    //             const formGroupNewId = formGroupId.replace("shipping-option-" + order, "shipping-option-" + (order - 1));
+    //             $("#" + formGroupId).attr("id", formGroupNewId);
+    //             countriesSellFormModule.handleChangeShippingOption(countryOrder, shippingOptionOrder);
+    //         }
+    //     }
+    // });
 }
